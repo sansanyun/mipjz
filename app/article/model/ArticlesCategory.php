@@ -101,7 +101,7 @@ class ArticlesCategory extends Controller
                 }
             }
         }
-        $pid = isset($tag['pid']) ? $tag['pid'] : '';
+        $pid = isset($tag['pid']) ? $tag['pid'] : 0;
         $orderBy = isset($tag['orderBy']) ? $tag['orderBy'] : 'sort';
         $order = isset($tag['order']) ? $tag['order'] : 'asc';
         $limit = isset($tag['limit']) ? $tag['limit'] : '';

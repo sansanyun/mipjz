@@ -74,6 +74,16 @@ class ArticleDetail extends Base
         $templateName = $itemInfo['categoryInfo']['detail_template'] ? $itemInfo['categoryInfo']['detail_template'] : $this->itemType . 'Detail';
         $templateName = str_replace('.html', '', $templateName);
         
+        //兼容老版本
+        $itemTagsList = model('app.tag.model.Tags')->getItemList('',1,10,'add_time','asc','','','',$itemInfo['uurl']);
+        if ($itemTagsList) {
+            foreach ($itemTagsList as $key => $value) {
+            	   $itemTagsList[$key]['tags']['name'] = $value['name'];
+            }
+        }
+        $this->assign('tags',$itemTagsList);
+        
+        
         return $this->mipView($this->itemType . '/'.$templateName);
     }
 
