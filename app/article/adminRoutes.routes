@@ -9,6 +9,11 @@
   component: ArticleCategory
 },
 {
+  name: 'articleDiy',
+  path: '/:mod/articleDiy/',
+  component: ArticleDiy
+},
+{
   name: 'articlePush',
   path: '/:mod/articlePush/',
   component: ArticlePush

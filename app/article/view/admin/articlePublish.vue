@@ -154,6 +154,7 @@
         }
         this.getTags();
         this.editorInit();
+        this.getFieldList();
         this.getCategoryList();
     },
     methods: {
@@ -204,6 +205,22 @@
                 }
             });
         },
+        getFieldList: function() {
+                var _this = this;
+                this.$mip.ajax('{$domain}/article/ApiAdminArticleDiy/itemFieldList', {
+                }).then(function (res) {
+                    if (res.code == 1) {
+                        var fieldList = res.data;
+                        var tempFieldList = [];
+                        if (fieldList) {
+                            for (var i = 0; i < fieldList.length; i++) {
+                                tempFieldList.push({value:'',key:fieldList[i].value, name: fieldList[i].name});
+                            }
+                        }
+                        _this.fieldList = tempFieldList;
+                    }
+                });
+            },
         getCategoryList: function() {
             var _this = this;
             this.$mip.ajax('{$domain}/article/ApiAdminArticleCategory/categoryList', {
