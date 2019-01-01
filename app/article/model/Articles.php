@@ -357,7 +357,7 @@ class Articles extends Controller
             $tagIdsWhere['tags_id']  = ['in',$tagIds];
         }
          
-        $itemTagsList = db('ItemTags')->where('item_type',$itemType)->where($tagIdsWhere)->order('item_add_time',$order)->page($page,$limit)->select();
+        $itemTagsList = db('ItemTags')->where($tagIdsWhere)->order('item_add_time',$order)->page($page,$limit)->select();
         if ($itemTagsList) {
             foreach ($itemTagsList as $k => $v) {
                 $itemTagsListIds[] = $v['item_id'];
@@ -382,7 +382,7 @@ class Articles extends Controller
             $tagArray = explode(',',$tagIds);
             $tagIdsWhere['tags_id']  = ['in',$tagArray];
         }
-        $count = db('ItemTags')->where('item_type',$itemType)->where($tagIdsWhere)->count();
+        $count = db('ItemTags')->where($tagIdsWhere)->count();
         
         $tagInfo = null;
         if ($tagIds) {

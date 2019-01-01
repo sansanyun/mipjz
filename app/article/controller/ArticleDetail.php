@@ -75,7 +75,7 @@ class ArticleDetail extends Base
         $templateName = str_replace('.html', '', $templateName);
         
         //兼容老版本
-        $itemTagsList = model('app.tag.model.Tags')->getItemList('',1,10,'add_time','asc','','','',$itemInfo['uurl']);
+        $itemTagsList = model('app.tag.model.Tags')->getItemList('',1,10,'add_time','asc','','','',$itemInfo['uuid']);
         if ($itemTagsList) {
             foreach ($itemTagsList as $key => $value) {
             	   $itemTagsList[$key]['tags']['name'] = $value['name'];
