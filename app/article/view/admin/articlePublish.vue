@@ -58,7 +58,7 @@
                         
                         <Form-Item label="封面">
                             <i-Input style="width: 500px;" v-model="imgUrl" placeholder="缩略图可以直接添加">
-                                <Upload slot="append" :on-success="handleSuccessImg" :format="['jpg','png']" name='fileDataFileName'
+                                <Upload slot="append"  :show-upload-list='false' :on-success="handleSuccessImg" :format="['jpg','png','gif','jpeg']" name='fileDataFileName'
                                     action="/setting/ApiAdminUpload/defaultImgUpload">
                                     <i-button  icon="ios-cloud-upload-outline">上传缩略图</i-Button>
                                 </Upload>

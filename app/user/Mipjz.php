@@ -3,7 +3,7 @@
 //Copyright (c) 2017~2099 http://www.ssycms.com All rights reserved.
 namespace app\user;
 use think\template\TagLib;
-class Ssycms extends TagLib {
+class Mipjz extends TagLib {
     
     protected $tags   =  [
         'userGroup'      => ['close' => 1], 

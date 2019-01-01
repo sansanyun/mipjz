@@ -140,7 +140,11 @@ class Articles extends Controller
         
         if ($itemInfo) {
             $itemInfo['userInfo'] = model('app\user\model\Users')->getItemInfo($itemInfo['uid']);;
-            $itemInfo['firstImg'] = $itemInfo['img_url'];
+            if ($itemInfo['img_url']) {
+                $itemInfo['firstImg'] = $itemInfo['img_url'];
+            } else {
+                $itemInfo = $this->getImgList($itemInfo);
+            }
             $itemInfo['content'] = $this->getContentByItemContentId($itemInfo['uuid']);
             $itemInfo['description'] = $itemInfo['description'] ? $itemInfo['description'] : mb_substr(deleteHtml($itemInfo['content']),0,88,'utf-8');
             $itemInfo['mipContent'] = $this->getContentFilterByArticleInfo($itemInfo);
@@ -250,7 +254,6 @@ class Articles extends Controller
         }
         if ($itemList) {
             foreach($itemList as $k => $v) {
-                $itemList[$k]['firstImg'] = $itemList[$k]['img_url'];
                 $itemList[$k]['tempId'] = $this->siteInfo['idStatus'] ? $v['uuid'] : $v['id'];
                 $itemList[$k]['userInfo'] = model('app\user\model\Users')->getItemInfo($v['uid']);
                 $itemList[$k]['categoryInfo'] = model($this->itemCategoryModelNameSpace)->getCategoryInfo($v['cid']);
@@ -259,6 +262,13 @@ class Articles extends Controller
             }
             foreach($itemList as $k => $v) {
                 $itemList[$k]['url'] = $this->getUrlByItemInfo($v);
+            }
+            foreach($itemList as $k => $v) {
+                if ($itemList[$k]['img_url']) {
+                    $itemList[$k]['firstImg'] = $itemList[$k]['img_url'];
+                } else {
+                    $itemList[$k] = $this->getImgList($v);
+                }
             }
         } else {
             $itemList = [];
