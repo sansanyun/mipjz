@@ -103,24 +103,6 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/iview"></script>
 <script src="https://cdn.staticfile.org/blueimp-md5/2.7.0/js/md5.min.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-window.axios.defaults.headers['access-key'] = 'cFaLOmUGoz9URROtxaAqe37vHSlI0LL3';
-window.axios.defaults.headers['terminal'] = 'pc';
-if(localStorage.getItem('mip_userInfo') != undefined) {
-    axios.defaults.headers['uid'] = JSON.parse(localStorage.getItem('mip_userInfo')).uid;
-    axios.defaults.headers['access-token'] = JSON.parse(localStorage.getItem('mip_userInfo')).accessToken[0]['access-token'];
-    localStorage.setItem('access-token',JSON.parse(localStorage.getItem('mip_userInfo')).accessToken[0]['access-token']);
-    var rolesNodeList = JSON.parse(localStorage.getItem('mip_userInfo')).rolesNodeList ? JSON.parse(localStorage.getItem('mip_userInfo')).rolesNodeList : [];
-    var roleList = JSON.parse(localStorage.getItem('mip_userInfo')).roleList ? JSON.parse(localStorage.getItem('mip_userInfo')).roleList : [];
-    var role = {};
-    for(var i = 0; i < rolesNodeList.length; i++) {
-        role[rolesNodeList[i][name]] = '';
-    }
-    for(var i = 0; i < roleList.length; i++) {
-        role[roleList[i].name] = roleList[i].name;
-    }
-    Vue.prototype.$role = role;
-    Vue.prototype.$userInfo = JSON.parse(localStorage.getItem('mip_userInfo'));
-}
 var mip = {
     ajax(url, param) {
         return new Promise(function(resolve, reject) {
