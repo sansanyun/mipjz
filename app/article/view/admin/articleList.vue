@@ -392,7 +392,7 @@ export default {
         },
         articlePublishClick() {
             this.articlePublishUuid = '';
-            this.articlePublishCid = '';
+            this.articlePublishCid = this.cid;
             this.articlePublishStatus = true;
         },
         itemPaginationSelect(val) {
