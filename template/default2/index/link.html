@@ -1,0 +1,27 @@
+{extend name="main/main"/}
+
+{block name="main"}
+
+<div class="container pt-3">
+    <div class="mip-box">
+        <div class="mip-box-body">
+            <ul class="list-unstyled mb-0">
+            {foreach name='$diyPageList' id='v'}
+            <li class="d-inline-block mr-3 mb-3">
+                <a href="{$v.url}" data-type="mip" data-title="{$v.title}" title="{$v['title']}">{$v.title}</a>
+            </li>
+            {/foreach}
+            {miptag:tags value='v' limit='1000'}
+                <li class="d-inline-block mr-3 mb-3"><a href="{$v['url']}">{$v['name']}</a></li>
+            {/miptag:tags}
+            </ul>
+            <ul class="list-unstyled mb-0">
+            {mipcms:article value='v' limit='100'}
+                <li class="d-inline-block mr-3 mb-3"><a href="{$v['url']}">{$v['title']}</a></li>
+            {/mipcms:article}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{/block}

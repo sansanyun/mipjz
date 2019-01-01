@@ -1,0 +1,15 @@
+{
+  name: 'tagList',
+  path: '/:mod/tagList/:dataId?',
+  component: TagList
+},
+{
+  name: 'tagCategory',
+  path: '/:mod/tagCategory/:dataId?',
+  component: TagCategory
+},
+{
+  name: 'tagPush',
+  path: '/:mod/tagPush/:dataId?',
+  component: TagPush
+},

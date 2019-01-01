@@ -1,0 +1,15 @@
+{
+  name: 'widgetNav',
+  path: '/:mod/widgetNav/',
+  component: WidgetNav
+},
+{
+  name: 'widgetPages',
+  path: '/:mod/widgetPages/',
+  component: WidgetPages
+},
+{
+  name: 'widgetContact',
+  path: '/:mod/widgetContact/',
+  component: WidgetContact
+},

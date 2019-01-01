@@ -1,0 +1,16 @@
+<li class="li has-sub" :class='{"active":$route.params.mod=="widget"}'>
+    <a class="list-link"><i class="ion-ios-gear-outline"></i> 功能
+       <div class="list-icon"><i class="triangle-facing-left"></i><i class="triangle-facing-bottom"></i></div>
+    </a>
+    <ul class="sub-list">
+        <li class="sub-item">
+            <router-link class="sub-link" :to='"/widget/widgetPages/"'>单页面</router-link>
+        </li>
+        <li class="sub-item">
+            <router-link class="sub-link" :to='"/widget/widgetNav/" + ($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>导航链接</router-link>
+        </li>
+        <li class="sub-item">
+            <!--<router-link class="sub-link" :to='"/widget/widgetContact/" + ($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>留言管理</router-link>-->
+        </li>
+    </ul>
+</li>

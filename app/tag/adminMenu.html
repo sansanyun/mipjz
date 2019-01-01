@@ -1,0 +1,16 @@
+<li class="li has-sub" :class='{"active":$route.params.mod  == "tag"}'>
+    <a class="list-link with-sub"><i class="ion-ios-book-outline"></i> 标签
+       <div class="list-icon"><i class="triangle-facing-left"></i><i class="triangle-facing-bottom"></i></div>
+    </a>
+    <ul class="sub-list">
+        <li class="sub-item">
+            <router-link class="sub-link" to='/tag/tagList/'>全部标签</router-link>
+        </li>
+        <li class="sub-item">
+            <router-link class="sub-link" to='/tag/tagPush/'>SEO推送</router-link>
+        </li>
+        <li class="sub-item">
+            <router-link class="sub-link" to='/tag/tagCategory/'>分类管理</router-link>
+        </li>
+    </ul>
+</li>

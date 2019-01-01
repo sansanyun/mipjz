@@ -1,0 +1,15 @@
+{
+  name: 'articleList',
+  path: '/:mod/articleList/',
+  component: ArticleList
+},
+{
+  name: 'articleCategory',
+  path: '/:mod/articleCategory/',
+  component: ArticleCategory
+},
+{
+  name: 'articlePush',
+  path: '/:mod/articlePush/',
+  component: ArticlePush
+},

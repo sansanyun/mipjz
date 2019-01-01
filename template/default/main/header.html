@@ -1,0 +1,40 @@
+<div class="mipmb-header mipmb-header-default" id="mip_header">
+    <div class="container">
+        <div class="menu-warp">
+            <div class="logo-text">
+                <a data-type="mip" href="{$domain}" data-title="{$mipInfo['siteName']}">{$mipInfo['siteName']}</a>
+            </div>
+            <ul class="mipmb-menu list-unstyled">
+                <li class='nav-item {if condition="$mod=='index'"}active{/if}'>
+                    <a href="{$domain}" data-type="mip" data-title="{$siteInfo['siteName']}" title='首页'>首页</a>
+                </li>
+                {mipjz:widgetnav value='v'}
+                <li class="nav-item">
+                    <a {if condition='$v["target"]'}target="_blank"{/if} href="{$v.url}">{$v.name}</a>
+                </li>
+                {/mipjz:widgetnav}
+            </ul>
+            <div class="d-none d-lg-block header-search-warp">
+                <mip-form class='form-inline search-form' width='350' url="{$domain}/search" method="get">
+                    <div class="d-inline-block pull-left">
+                        <input class="form-control" type="text" name="q">
+                    </div>
+                    <input type="submit" class="d-inline btn btn-primary" value="搜索">
+                </mip-form>
+            </div>
+        </div>
+        <div class="d-none d-lg-block float-right">
+            <ul class="mipmb-menu list-unstyled">
+                {if condition='$userInfo["group_id"] == 1'}
+                <li>
+                    <a href="{$domain}/{$Think.config.admin}/">后台管理</a>
+                </li>
+                {else/}
+                <li>
+                    <a href="{$domain}/{$Think.config.admin}/">登录</a>
+                </li>
+                {/if}
+            </ul>
+        </div>
+    </div>
+</div>

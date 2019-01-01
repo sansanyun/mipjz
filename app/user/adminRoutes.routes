@@ -1,0 +1,15 @@
+{
+  name: 'user/editAccount',
+  path: '/:mod/editAccount/:dataId?',
+  component: EditAccount
+},
+{
+  name: 'user/user',
+  path: '/:mod/user/:dataId?',
+  component: User
+},
+{
+  name: 'user/userGroup',
+  path: '/:mod/userGroup/:dataId?',
+  component: UserGroup
+},

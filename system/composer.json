@@ -1,0 +1,48 @@
+{
+    "name": "topthink/think",
+    "description": "the new thinkphp framework",
+    "type": "project",
+    "keywords": [
+        "framework",
+        "thinkphp",
+        "ORM"
+    ],
+    "homepage": "http://thinkphp.cn/",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "liu21st",
+            "email": "liu21st@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "topthink/framework": "5.0.*",
+        "topthink/think-captcha": "^1.0",
+        "5ini99/think-addons": "dev-master",
+        "jaeger/querylist": "V3.2.1",
+        "jaeger/querylist-ext-multi": "^1.0",
+        "andreskrey/readability.php": "^1.1",
+        "guzzlehttp/guzzle": "^6.3",
+        "symfony/dom-crawler": "^3.3",
+        "aferrandini/phpqrcode": "1.0.1",
+        "jonnyw/php-phantomjs": "4.*",
+        "topthink/think-worker": "1.0.*"
+    },
+    "extra": {
+        "think-path": "thinkphp"
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "autoload": {
+        "psr-0": { "HTMLPurifier": "library/" },
+        "files": ["library/HTMLPurifier.composer.php"]
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
+    }
+}
