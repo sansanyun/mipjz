@@ -90,21 +90,6 @@ class Index extends Base
                     $xml .= '</url>';
                 }
             }
-            if ($diyPageList = db('DiyPage')->order('publish_time','desc')->limit(100)->select()) {
-                foreach($diyPageList as $key => $val) {
-                    $diyPageList[$key]['url'] = model('addons\diyPage\model\DiyPages')->getItemUrl($val['uuid']);
-                }
-                foreach($diyPageList as $key => $val) {
-                    $xml .= '<url>';
-                    $xml .= '<loc>' . $val["url"] . '</loc>';
-                    $xml .= '<lastmod>' . date("Y-m-d") . '</lastmod>';
-                    $xml .= '<changefreq>daily</changefreq>';
-                    $xml .= '<priority>0.9</priority>';
-                    $xml .= '</url>';
-                }
-            }
-            
-            
         }
         foreach($itemList as $k => $v) {
             $xml .= '<url>';
@@ -180,39 +165,5 @@ class Index extends Base
         $xml .= '</urlset>';
         return Response::create($xml)->contentType('text/xml');;
     }
-    
-	public function img()
-    {
- 		$url = input('param.url');
-		$url = str_replace('.jpg', '', $url);
-		$str = $url;
-		$url = Cache::get('img_'.$str);
-		if ($url) {
-			$urlPath = ROOT_PATH.'uploads' . DS . 'file' . DS . $str . '.jpg';
-			
-			if (is_file($urlPath)) {
-				
-			} else {
-				$url = urldecode($url);
-				$ch = curl_init();
-				curl_setopt($ch, CURLOPT_URL,$url);
-				curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-				curl_setopt($ch, CURLOPT_HEADER, 0);
-				//处理302重定向的问题
-	            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-				$img=curl_exec($ch);
-				curl_close($ch);
-				$dir = ROOT_PATH . 'uploads' . DS . 'file';
-				if(!is_dir($dir))
-				{
-					mkdir($dir, 0766, true);
-				}
-				
-				file_put_contents($urlPath,$img);
-	        	return Response::create($img)->contentType('image/jpeg');;
-			}
-		}
-    }
- 
     
 }
