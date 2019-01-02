@@ -52,7 +52,9 @@
                         </div>
                         <div class="float-right">
                             <button class="ivu-btn ivu-btn-text" type="text" :disabled='!itemListSelectStatus' @click="itemsDel"><i class="ivu-icon ivu-icon-ios-trash"></i> 批量删除</button>
+                            {if condition='$addInfo["descriptionBatch"]'}
                          	<button class="ivu-btn ivu-btn-text" type="text" :disabled='!itemListSelectStatus' @click="descriptionBatchClick"><i class="ivu-icon ivu-icon-paper-airplane"></i> 描述生成</button>
+                            {/if}
                         </div>
                     </div>
                     <div class="diy-table-item diy-table-item-header">
