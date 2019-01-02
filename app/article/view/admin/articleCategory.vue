@@ -172,7 +172,7 @@
                 <Tab-Pane label="内容" name='page'>
 	        		<Form>
 			            <Form-item>
-			            	<Input type='textarea' id="article_editor" v-model="content" ></Input>
+                            <textarea id="article_editor" class="simditor" style="height: 400px;" placeholder="请输入内容..."></textarea>
 			            </Form-item>
 	             	</Form>
                 </Tab-Pane>
