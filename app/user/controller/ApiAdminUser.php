@@ -61,8 +61,6 @@ class ApiAdminUser extends AdminBase
         $password = input('post.password');
         $rpassword = input('post.rpassword');
         
-        $money = input('post.money');
-        
         if (!$uid || !$groupId) {
             return jsonError('缺少参数');
         }
@@ -93,13 +91,11 @@ class ApiAdminUser extends AdminBase
                 'salt' => $salt , 
                 'password' => $password, 
                 'group_id' => $groupId,
-                'money' => $money,
                 ));
         } else {
            $usersInfo = db($this->item)->where('uid',$userInfo['uid'])->update(array(
             'username' => $username,
             'group_id' => $groupId,
-            'money' => $money,
             ));
         }
         

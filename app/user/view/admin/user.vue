@@ -200,13 +200,6 @@
                     <i-input v-model="item.username"></i-input>
 
                 </Form-item>
-                
-                <Form-item label="余额" prop="money">
-
-                    <i-input v-model="item.money"></i-input>
-
-                </Form-item>
-
 
                 <Form-item label="管理密码" prop="password">
 
