@@ -31,7 +31,7 @@ class ApiAdminTag extends AdminBase
             return jsonError('标题已存在');
         }
         if (isset($data['url_name']) && $data['url_name']) {
-            $itemInfoByUrlName = db($this->item)->where('url_name',$url_name)->find();
+            $itemInfoByUrlName = db($this->item)->where('url_name',$data['url_name'])->find();
             if ($itemInfoByUrlName) {
                 return jsonError('自定义的Url已存在');
             }
