@@ -286,7 +286,6 @@ export default {
 
                 rpassword: '',
                 
-                money: 0,
 
             },
 
@@ -398,7 +397,6 @@ export default {
                 
                 this.item.rpassword = '';
                 
-                this.item.money = 0;
 
                 this.dialogItemTitle = '添加用户';
 
@@ -420,7 +418,6 @@ export default {
 
                 this.item.rpassword = '';
 
-                this.item.money = item.money;
                 
                 this.dialogItemTitle = '修改用户';
 
@@ -444,7 +441,6 @@ export default {
 
                         "rpassword": md5(this.item.rpassword),
                         
-                        money: this.item.money,
                         
 
                     }).then(res => {

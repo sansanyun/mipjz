@@ -141,7 +141,6 @@
             
             downUrl:'',
             imgUrl: '',
-            money: 0.00,
             stockNum: 1,
             
        }
@@ -269,7 +268,6 @@
                     this.cid = itemInfo.cid;
                     this.imgUrl = itemInfo.img_url;
                     this.downUrl = itemInfo.down_url;
-                    this.money = itemInfo.money;
                     this.stockNum = itemInfo.stock_num;
                     for(var i = 0; i < this.fieldList.length; i++) {
                         this.fieldList[i].value = itemInfo[this.fieldList[i].key];
