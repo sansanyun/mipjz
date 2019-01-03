@@ -423,7 +423,7 @@ class Articles extends Controller
         $ulClass = isset($tag['ulClass']) ? $tag['ulClass'] : 'site-crumb';
         $liClass = isset($tag['liClass']) ? $tag['liClass'] : '';
         $isHome = isset($tag['isHome']) ? $tag['isHome'] : 1;
-        $separator = isset($tag['separator']) ? $tag['$separator'] : '';
+        $separator = isset($tag['separator']) ? $tag['separator'] : '';
         if ($cid) {
             $categoryInfo = model($this->itemCategoryModelNameSpace)->getCategoryInfo($cid);
             if ($categoryInfo['pid'] == 0) {
