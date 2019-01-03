@@ -164,7 +164,7 @@
                     textarea: document.getElementById('article_editor'),
                     toolbar: _this.toolbar,
                     upload: {
-                        url: '{$domain}/settings/ApiAdminUpload/defaultImgUpload',
+                        url: '{$domain}/setting/ApiAdminUpload/defaultImgUpload',
                         params: {
                             type: 'article',
                         },
