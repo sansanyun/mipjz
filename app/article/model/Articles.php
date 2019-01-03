@@ -23,6 +23,7 @@ class Articles extends Controller
         $this->categoryAllListData = config('articleCategoryListData');
         
         $this->siteInfo = config('siteInfo');
+        $this->domain = config('domain');
     }
     public function itemAdd($data,$fieldList = [])
     {
