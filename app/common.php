@@ -702,10 +702,9 @@ function getImage($url,$save_dir,$filename = '',$type=0) {
          return false;
     }
     $ext = strrchr($url,'.');
-    if($ext != '.gif' || $ext!='.jpg' ||  $ext!='.png' || $ext!='.jpeg'){
+    if ($ext != '.gif' && $ext != '.jpg' &&  $ext != '.png' && $ext != '.jpeg') {
         $ext = '.jpg';
     }
-     
     $filename = uuid() . $ext;
     if (0 !== strrpos($save_dir, DS )){
         $save_dir.= DS;

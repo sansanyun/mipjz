@@ -58,6 +58,9 @@ class Articles extends Controller
             }
         }
         db($this->item)->insert($resArray);
+        if (config('addonsInfo')['articleImgLocal']) {
+            $data['content'] = model('addons\articleImgLocal\model\ArticleImgLocal')->index($data['content']);
+        }
         db($this->itemContent)->insert(array(
            'id' => $uuid,
            'content' => htmlspecialchars($data['content']),
@@ -91,6 +94,9 @@ class Articles extends Controller
             $resArray['img_url'] = $data['img_url'];
         }
         db($this->item)->where('uuid',$data['uuid'])->update($resArray);
+        if (config('addonsInfo')['articleImgLocal']) {
+            $data['content'] = model('addons\articleImgLocal\model\ArticleImgLocal')->index($data['content']);
+        }
         db($this->itemContent)->where('id',$data['uuid'])->update(array(
            'content' => htmlspecialchars($data['content']),
         ));
