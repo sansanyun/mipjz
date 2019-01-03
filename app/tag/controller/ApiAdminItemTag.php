@@ -30,11 +30,16 @@ class ApiAdminItemTag extends AdminBase
         $tagsList = db('ItemTags')->where('item_id',$itemId)->select();
 
         if ($tagsList) {
+            $tempTagsList = [];
             foreach ($tagsList as $k => $v) {
-                $tagsList[$k]['tags'] = db('Tags')->where('id',$v['tags_id'])->find();
+                $tagInfo = db('Tags')->where('id',$v['tags_id'])->find();
+                if ($tagInfo) {
+                    $v['tags'] = $tagInfo;
+                    $tempTagsList[] = $v;
+                }
             }
         }
-        return jsonSuccess('',['itemList' => $tagsList]);
+        return jsonSuccess('',['itemList' => $tempTagsList]);
     }
 
     

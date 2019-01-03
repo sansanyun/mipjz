@@ -205,7 +205,10 @@ class Tags extends Controller
                 $itemTags = db('ItemTags')->where('item_id','in',$itemIds)->select();
                 if ($itemTags) {
                     foreach ($itemTags as $k => $v) {
-                        $itemList[] = db($this->item)->where('id',$v['tags_id'])->find();
+                        $tagInfo = db($this->item)->where('id',$v['tags_id'])->find();
+                        if ($tagInfo) {
+                            $itemList[] = $tagInfo;
+                        } 
                     }
                 }
             } else {

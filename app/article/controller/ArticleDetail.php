@@ -78,7 +78,9 @@ class ArticleDetail extends Base
         $itemTagsList = model('app.tag.model.Tags')->getItemList('',1,10,'add_time','asc','','','',$itemInfo['uuid']);
         if ($itemTagsList) {
             foreach ($itemTagsList as $key => $value) {
-            	   $itemTagsList[$key]['tags']['name'] = $value['name'];
+                if ($value) {
+                   $itemTagsList[$key]['tags']['name'] = $value['name'];
+                }
             }
         }
         $this->assign('tags',$itemTagsList);
