@@ -93,6 +93,11 @@ class Articles extends Controller
         if (isset($data['img_url'])) {
             $resArray['img_url'] = $data['img_url'];
         }
+        if (is_array($fieldList)) {
+            for ($i=0; $i < count($fieldList); $i++) { 
+                $resArray[$fieldList[$i]['key']] = $fieldList[$i]['value'];
+            }
+        }
         db($this->item)->where('uuid',$data['uuid'])->update($resArray);
         if (config('addonsInfo')['articleImgLocal']) {
             $data['content'] = model('addons\articleImgLocal\model\ArticleImgLocal')->index($data['content']);
