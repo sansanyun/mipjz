@@ -11,6 +11,7 @@
 // +----------------------------------------------------------------------
 
 // 定义项目路径
+
 define('SITE_HOST',true);
 
 define('BAIDU',false);
@@ -19,7 +20,7 @@ define('APP_PATH', __DIR__ . '/app/');
 
 define('PUBLIC_PATH', __DIR__ . '/public/');
 
-define('CONF_PATH', __DIR__ . '/config/');
+define('VENDOR_PATH',__DIR__ . '/system/vendor/');
 
 // 加载框架引导文件
 require __DIR__.'/system/thinkphp/console.php';
