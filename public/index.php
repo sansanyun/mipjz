@@ -11,6 +11,8 @@ define('BAIDU',false);
 
 define('APP_PATH', __DIR__ . '/../app/');
 
+define('SITE_PATH', __DIR__ . '/');
+
 define('PUBLIC_PATH', __DIR__ . '/../public/');
  
 define('VENDOR_PATH',__DIR__ . '/../system/vendor/');
