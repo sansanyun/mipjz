@@ -33,7 +33,7 @@ class Worker
      *
      * @var string
      */
-    const VERSION = '3.5.16';
+    const VERSION = '3.5.17';
 
     /**
      * Status starting.
@@ -719,7 +719,7 @@ class Worker
 
         //Show last line
         $line_last = str_pad('', static::getSingleLineTotalLength(), '-') . PHP_EOL;
-        $content && static::safeEcho($line_last);
+        !empty($content) && static::safeEcho($line_last);
 
         if (static::$daemonize) {
             static::safeEcho("Input \"php $argv[0] stop\" to stop. Start success.\n\n");

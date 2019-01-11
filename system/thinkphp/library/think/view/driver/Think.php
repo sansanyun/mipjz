@@ -16,8 +16,8 @@ use think\exception\TemplateNotFoundException;
 use think\Loader;
 use think\Log;
 use think\Request;
-use think\Template;
 use think\Config;
+use think\Template;
 
 class Think
 {
@@ -45,9 +45,7 @@ class Think
         if (empty($this->config['view_path'])) {
             $this->config['view_path'] = App::$modulePath . 'view' . DS;
         }
-        
         $this->config['tpl_cache'] = Config::get('app_debug') ? false : $this->config['tpl_cache'];
-        
         $this->template = new Template($this->config);
     }
 
