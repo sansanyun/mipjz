@@ -11,7 +11,7 @@ CREATE TABLE `mip_access_key` (
   PRIMARY KEY (`id`),
   KEY `key` (`key`),
   KEY `type` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `mip_access_key`
@@ -72,7 +72,7 @@ CREATE TABLE `mip_articles` (
   KEY `views` (`views`) USING BTREE,
   KEY `create_time` (`create_time`),
   KEY `baidu_spider_num` (`baidu_spider_num`,`google_spider_num`,`so_spider_num`,`sm_spider_num`,`sogou_spider_num`,`baidu_spider_time`,`google_spider_time`,`so_spider_time`,`sm_spider_time`,`sogou_spider_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
  
  
 DROP TABLE IF EXISTS `mip_articles_table`;
@@ -86,7 +86,7 @@ CREATE TABLE `mip_articles_table` (
   KEY `id` (`id`),
   KEY `value` (`value`),
   KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `mip_articles_category`
@@ -116,7 +116,7 @@ CREATE TABLE `mip_articles_category` (
   KEY `sort` (`sort`),
   KEY `pid` (`pid`),
   KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `mip_articles_comments`
@@ -134,7 +134,7 @@ CREATE TABLE `mip_articles_comments` (
   KEY `item_id` (`item_id`),
   KEY `uid` (`uid`),
   KEY `create_time` (`create_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `mip_articles_content`
@@ -145,7 +145,7 @@ CREATE TABLE `mip_articles_content` (
   `content` longtext,
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 -- ----------------------------
@@ -162,7 +162,7 @@ CREATE TABLE `mip_articles_table` (
   KEY `id` (`id`),
   KEY `value` (`value`),
   KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 -- ----------------------------
@@ -174,7 +174,7 @@ CREATE TABLE `mip_articles_setting` (
   `val` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`key`),
   KEY `key` (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `mip_articles_setting`
@@ -198,7 +198,7 @@ CREATE TABLE `mip_item_tags` (
   KEY `item_id` (`item_id`),
   KEY `tags_id` (`tags_id`),
   KEY `item_type` (`item_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `mip_roles_access`
@@ -212,7 +212,7 @@ CREATE TABLE `mip_roles_access` (
   KEY `groupId` (`group_id`),
   KEY `nodeId` (`node_id`),
   KEY `pid` (`pid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 --  Table structure for `mip_roles_node`
@@ -240,7 +240,7 @@ CREATE TABLE `mip_roles_node` (
   KEY `sort` (`sort`),
   KEY `group_id` (`group_id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 --  Table structure for `mip_settings`
@@ -251,7 +251,7 @@ CREATE TABLE `mip_settings` (
   `key` varchar(255) NOT NULL,
   `val` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `mip_settings`
@@ -277,7 +277,7 @@ CREATE TABLE `mip_tags` (
   `keywords` varchar(255) DEFAULT NULL,
   `cid` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `mip_users`
@@ -317,7 +317,7 @@ CREATE TABLE `mip_users` (
   KEY `username` (`username`),
   KEY `group_id` (`group_id`),
   KEY `reg_time` (`reg_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 -- ----------------------------
@@ -337,7 +337,7 @@ CREATE TABLE `mip_users_group` (
   PRIMARY KEY (`group_id`),
   KEY `sort` (`sort`),
   KEY `group_id` (`group_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 --  Records of `mip_users_group`
@@ -358,7 +358,7 @@ CREATE TABLE `mip_domain_sites` (
   KEY `id` (`id`),
   KEY `domain` (`domain`),
   KEY `type` (`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `mip_domain_settings`;
 CREATE TABLE `mip_domain_settings` (
@@ -387,7 +387,7 @@ CREATE TABLE `mip_domain_settings` (
   `statistical` text,
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 DROP TABLE IF EXISTS `mip_tags_category`;
@@ -415,14 +415,14 @@ CREATE TABLE `mip_tags_category` (
   KEY `sort` (`sort`),
   KEY `pid` (`pid`),
   KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `mip_key`;
 CREATE TABLE `mip_key` (
   `key` varchar(255) NOT NULL,
   `val` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 BEGIN;
 INSERT INTO `mip_key` VALUES ('baiduXZClientId', ''), ('baiduXZClientSecret', '') ,('baiduXZToken', ''),('baiduXZRedirectUri', '');
@@ -438,7 +438,7 @@ CREATE TABLE `mip_xiongzhang_auto_reply` (
   `end_time` int(11) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 SET FOREIGN_KEY_CHECKS = 1;
 
 DROP TABLE IF EXISTS `mip_addons`;
@@ -457,7 +457,7 @@ CREATE TABLE `mip_addons` (
   `header_status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `add_time` (`add_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 DROP TABLE IF EXISTS `mip_header_menu`;
@@ -475,7 +475,7 @@ CREATE TABLE `mip_header_menu` (
   KEY `id` (`id`),
   KEY `sort` (`sort`),
   KEY `item_id` (`item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 DROP TABLE IF EXISTS `mip_addons_menu`;
@@ -493,7 +493,7 @@ CREATE TABLE `mip_addons_menu` (
   KEY `id` (`id`),
   KEY `sort` (`sort`),
   KEY `item_id` (`item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 DROP TABLE IF EXISTS `mip_global_action`;
@@ -508,7 +508,7 @@ CREATE TABLE `mip_global_action` (
   KEY `type` (`type`),
   KEY `id` (`id`),
   KEY `sort` (`sort`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `mip_widget_nav`;
 CREATE TABLE `mip_widget_nav` (
@@ -523,7 +523,7 @@ CREATE TABLE `mip_widget_nav` (
   KEY `type` (`type`),
   KEY `id` (`id`),
   KEY `sort` (`sort`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `mip_widget_pages`;
 CREATE TABLE `mip_widget_pages` (
@@ -537,7 +537,7 @@ CREATE TABLE `mip_widget_pages` (
   `sort` int(11) DEFAULT NULL,
   `template` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `mip_widget_contact`;
 CREATE TABLE `mip_widget_contact` (
@@ -552,4 +552,4 @@ CREATE TABLE `mip_widget_contact` (
   KEY `type` (`type`),
   KEY `id` (`id`),
   KEY `item_id` (`item_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
