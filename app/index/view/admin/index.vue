@@ -48,7 +48,7 @@
                     	<p><b>PHP版本：</b><?php echo PHP_VERSION;?></p>
                     	<hr class="mb-2 mt-2" />
                         <p><b>软件名称：</b>MIPCMS内容管理系统</p>
-                        <p><b>当前版本：</b>{$siteInfo['localCurrentVersion']}</p>
+                        <p><b>当前版本：</b>MIPCMS v5.0.1</p>
                         <p><b>联系方式：</b>QQ85249417</p>
                         <p><b>版权归属：</b>苏州三三云网络科技有限公司</p>
                     </div>

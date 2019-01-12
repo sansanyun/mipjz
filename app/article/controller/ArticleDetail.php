@@ -57,7 +57,21 @@ class ArticleDetail extends Base
         $this->assign('mipTitle', $mipTitle);
      
         //关键词
-        $mipKeywords = $itemInfo['keywords'];
+        if ($itemInfo['keywords']) {
+            $mipKeywords = $itemInfo['keywords'];
+        } else {
+	        $itemTagsList = model('app.tag.model.Tags')->getItemList( null, 1, 20, 'add_time', 'desc', $where = null, null, null,$itemInfo['uuid'], null, null);
+	        $this->assign('tags',$itemTagsList);
+	        $itemInfo['tagsListString'] = '';
+	        if ($itemTagsList) {
+	          	foreach ($itemTagsList as $k => $v) {
+	                $tempTagsName[] = $v['name'];
+	            }
+	            $tagsListString = implode(',',$tempTagsName);
+	            $itemInfo['tagsListString'] = $tagsListString;
+	        }
+            $mipKeywords = $itemInfo['tagsListString'];
+        }
         $this->assign('mipKeywords',$mipKeywords);
         
         //文本描述

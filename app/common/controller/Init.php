@@ -44,7 +44,11 @@ class Init extends Controller
         $this->domainStatic = config('domainStatic');
         $this->assign('domainStatic',$this->domainStatic);
         
-        $this->siteUrl = $this->domain . $this->request->url();
+        if ($this->siteInfo['articleDomain']) {
+            $this->siteUrl = $this->siteInfo['httpType'] . $this->siteInfo['domain'] . $this->request->url();
+        } else {
+            $this->siteUrl = $this->domainStatic . $this->request->url();
+        }
         $this->assign('siteUrl',$this->siteUrl);
         $this->currentUrl = $this->siteUrl;
         $this->assign('currentUrl',$this->currentUrl);
