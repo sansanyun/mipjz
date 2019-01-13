@@ -178,7 +178,7 @@
                     url: this.uploadUrl,
                     params: {
                         type: 'article',
-                        siteId: this.$route.params.dataId,
+                        siteId: '',
                     },
                     fileKey: 'fileDataFileName',
                     connectionCount: 3,
