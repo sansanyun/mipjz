@@ -169,7 +169,6 @@ var mip = {
         }
     }
 }
-
 Vue.prototype.$mip = mip;
 Vue.filter('dateTime', function(value) {
     var dateTime = new Date(parseInt(value * 1000));

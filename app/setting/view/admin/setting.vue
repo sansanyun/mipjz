@@ -8,7 +8,7 @@
                 <h4 class="title">设置</h4> <h5 class="sub-title">系统设置</h5>
             </div>
             <div class="float-right">
-                <button type="button" class="ivu-btn ivu-btn-primary ivu-btn-circle" @click='onSubmitSetting'>
+                <button type="button" class="ivu-btn ivu-btn-primary ivu-btn-circle" @click='save'>
                     <span>立即保存</span>
                 </button>
             </div>
@@ -89,11 +89,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <i-form label-position="top">
-                            <Form-item label="运行地址">
-                                <i-input v-model="setting.articleDomain" placeholder='仅用于目录建站使用，如果不理解请勿填写'></i-input>
+                            <Form-item label="运行地址(仅用于目录站)">
+                                <i-input v-model="setting.articleDomain" placeholder='仅用于目录建站使用，非目录建站，请勿填写'></i-input>
                             </Form-item>
                             <Form-item label="网站域名">
-                                <i-input v-model="setting.domain" placeholder='此项若填写错误，会导致系统无法正常运行，如果不理解请勿填写'>
+                                <i-input v-model="setting.domain" placeholder='例如：www.mipcms.com 可选项（目录建站必填项）'>
                                 <i-select v-model="setting.httpType" slot="prepend" style="width: 80px">
                                     <i-option value="http://">http://</i-option>
                                     <i-option value="https://">https://</i-option>
@@ -187,6 +187,39 @@
                     this.zhanqunInfo = res.data;
                 }
             });
+        },
+        save: function() {
+        	if (this.setting.domain) {
+        		 if (this.setting.rewrite) {
+	        		axios.post(this.setting.httpType + this.setting.domain + '/setting/ApiSetting/status').then(res => {
+	        			if(res.data.code == 1 && res.data.msg == 'MIPCMS') {
+		                	this.onSubmitSetting();
+		                }
+	        		}, err => {
+	                 	this.$Message.error({content: '请检查域名、或伪静态配置是否正确',duration: 3});
+		            })
+        		 } else {
+	        		axios.post(this.setting.httpType + this.setting.domain + '/index.php?s=/setting/ApiSetting/status').then(res => {
+	        			if(res.data.code == 1 && res.data.msg == 'MIPCMS') {
+		                	this.onSubmitSetting();
+		                }
+	        		}, err => {
+	                 	this.$Message.error({content: '域名或http协议填写错误，请重新填写',duration: 3});
+		            })
+        		 }
+        	} else {
+        		if (this.setting.rewrite) {
+	        		axios.post('{$domainStatic}/setting/ApiSetting/status').then(res => {
+	        			if(res.data.code == 1 && res.data.msg == 'MIPCMS') {
+		                	this.onSubmitSetting();
+		                }
+	        		}, err => {
+	                 	this.$Message.error({content: '尚未配置伪静态规则，或伪静态配置错误，系统无法保存',duration: 3});
+		            })
+        		 } else {
+		           	this.onSubmitSetting();
+        		 }
+        	}
         },
             onSubmitSetting: function() {
                 this.$mip.ajax('{$domain}/setting/ApiAdminSetting/settingEdit', {
