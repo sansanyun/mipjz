@@ -9,9 +9,7 @@ class ApiArticle extends Base
     protected $beforeActionList = ['start'];
     public function start() {
         $this->itemModelNameSpace = 'app\article\model\Articles';
-        $this->item = $this->articles;
-        $this->itemCategory = $this->articlesCategory;
-        $this->itemContent = $this->articlesContent;
+        $this->item = 'Articles';
         $this->itemType = 'article';
     }
     
