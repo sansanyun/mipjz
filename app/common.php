@@ -175,7 +175,7 @@ use app\common\lib\ChinesePinyin;
     }
     
     function getAvatarUrl($uid) {
-        if (MIP_HOST) {
+        if (SITE_HOST) {
             if (file_exists(ROOT_PATH . 'public'. DS .'uploads'. DS .'avatar' . DS . $uid . '.jpg')) {
                 return '/public/uploads/avatar/' . $uid .'.jpg';
             } else {

@@ -99,7 +99,7 @@ class Users extends Controller
             $itemInfo['groupInfo'] = model($this->itemCategoryModelNameSpace)->getCategoryInfo($itemInfo['cid']);
             $itemInfo['nickname'] = $itemInfo['nickname'] ? $itemInfo['nickname'] : $itemInfo['username'];
             $itemInfo['url'] = $this->getUrlByItemInfo($itemInfo);
-            if (MIP_HOST) {
+            if (SITE_HOST) {
                 $itemInfo['avatar'] =  $itemInfo['avatar'] ? $itemInfo['avatar'] : '/public/assets/common/images/avatar.jpg';
             } else {
                 $itemInfo['avatar'] =  $itemInfo['avatar'] ? $itemInfo['avatar'] : '/assets/common/images/avatar.jpg';
@@ -194,7 +194,7 @@ class Users extends Controller
             foreach($itemList as $k => $v) {
                 $itemList[$k]['groupInfo'] = model($this->itemCategoryModelNameSpace)->getCategoryInfo($v['group_id']);
                 $itemList[$k]['nickname'] = $itemList[$k]['nickname'] ? $itemList[$k]['nickname'] : $itemList[$k]['username'];
-                if (MIP_HOST) {
+                if (SITE_HOST) {
                     $itemList[$k]['avatar'] =  $itemList[$k]['avatar'] ? $itemList[$k]['avatar'] : '/public/assets/common/images/avatar.jpg';
                 } else {
                     $itemList[$k]['avatar'] =  $itemList[$k]['avatar'] ? $itemList[$k]['avatar'] : '/assets/common/images/avatar.jpg';
