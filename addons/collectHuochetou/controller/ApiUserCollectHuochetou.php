@@ -1,4 +1,4 @@
-<?php//MIPCMS.Com [Don't forget the beginner's mind]//Copyright (c) 2017~2099 http://MIPCMS.Com All rights reserved.
+<?php//MIPJZ.Com [Don't forget the beginner's mind]//Copyright (c) 2017~2099 http://MIPJZ.Com All rights reserved.
 namespace addons\collectHuochetou\controller;use think\Request;use think\Loader;use think\Db;use app\common\lib\File;use app\common\lib\ChinesePinyin;use app\common\controller\Init;class ApiUserCollectHuochetou extends Init {    public function articleAdd(Request $request) {        if (Request::instance() -> isPost()) {            $password = input('post.password');            if ($password != db('key')->where('key','collect_huochetou')->find()['val']) {                return jsonError('密码错误');                exit();            }            $title = input('post.title');	        $imgUrl = input('post.imgUrl');	        $videoImg = input('post.videoImg');	        $videoUrl = input('post.videoUrl');            $url_name = input('post.url_name');            $content = input('post.content');            $cid = input('post.cid');            $uid = input('post.uid');            $tags = input('post.tags');
             $publish_time = input('post.publish_time') ? input('post.publish_time') : time();;            $itemType = 'article';            $is_recommend = input('post.is_recommend');            if (!$is_recommend) {                $is_recommend = 0;            }            if ($tags) {                $tags = explode(',',$tags);            }            if (!$title) {              return jsonError('请输入标题');            }            if (!$content) {              return jsonError('请输入内容');            }
             if (!$cid) {                $cid = 0;            }
@@ -16,7 +16,7 @@ namespace addons\collectHuochetou\controller;use think\Request;use think\Loade
     }    public function articleAddTime(Request $request)    {
         if (Request::instance()->isPost()) {
             $password = input('post.password');
-            //请将'www.mipcms.com' 修改成自己的密码
+
             if ($password != db('key')->where('key','collect_huochetou')->find()['val']) {
                 return jsonError('密码错误');
                 exit();

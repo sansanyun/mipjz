@@ -1,5 +1,5 @@
 <?php
-//MIPCMS.Com [Don't forget the beginner's mind]
+//MIPJZ.Com [Don't forget the beginner's mind]
 //Copyright (c) 2017~2099 http://www.ssycms.com All rights reserved.
 namespace app\user\controller;
 use think\Request;use think\Session;use think\Validate;use think\Cache;use app\common\lib\Htmlp;use app\common\controller\Base;class ApiUser extends Base{    protected $beforeActionList = ['start'];    public function start() {        $this->item = 'Users';        $this->itemType = 'user';        $this->itemName = '用户';        $this->itemContent = 'UsersContent';        $this->itemCategory = 'UsersGroup';        $this->itemModelNameSpace = 'app\user\model\Users';        $this->itemCategoryModelNameSpace = 'app\user\model\UsersGroup';        $this->categoryListData = config('userCategoryListData');        $this->categoryAllListData = config('userCategoryListData');                $this->siteInfo = config('siteInfo');    }     

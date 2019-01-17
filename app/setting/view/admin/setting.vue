@@ -93,7 +93,7 @@
                                 <i-input v-model="setting.articleDomain" placeholder='仅用于目录建站使用，非目录建站，请勿填写'></i-input>
                             </Form-item>
                             <Form-item label="网站域名">
-                                <i-input v-model="setting.domain" placeholder='例如：www.mipcms.com 可选项（目录建站必填项）'>
+                                <i-input v-model="setting.domain" placeholder='例如：www.mipjz.com 可选项（目录建站必填项）'>
                                 <i-select v-model="setting.httpType" slot="prepend" style="width: 80px">
                                     <i-option value="http://">http://</i-option>
                                     <i-option value="https://">https://</i-option>

@@ -1,5 +1,5 @@
 <?php
-//MIPCMS.Com [Don't forget the beginner's mind]
+//MIPJZ.Com [Don't forget the beginner's mind]
 //Copyright (c) 2017~2099 http://www.ssycms.com All rights reserved.
 namespace app\user\controller;use think\Request;use app\common\controller\Base;class User extends Base
 {

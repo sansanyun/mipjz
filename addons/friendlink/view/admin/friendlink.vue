@@ -57,10 +57,10 @@
                     <i-input v-model="linkInfo.name" placeholder="例:MIPCMS"></i-input>
                 </Form-Item>
                 <Form-Item label="网址" prop="url">
-                    <i-input placeholder="例:http://www.mipcms.com" v-model="linkInfo.url"></i-input>
+                    <i-input placeholder="例:http://www.mipjz.com" v-model="linkInfo.url"></i-input>
                 </Form-Item>
                 <Form-Item label="描述">
-                  <i-input v-model="linkInfo.description" placeholder="例:MIPCMS内容管理系统"></i-input>
+                  <i-input v-model="linkInfo.description" placeholder="例:MIP建站系统"></i-input>
                 </Form-Item>
                 <Form-Item label="类型">
                     <i-select v-model="linkInfo.type" placeholder="请选择">

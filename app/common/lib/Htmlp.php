@@ -1,5 +1,5 @@
 <?php
-//MIPCMS.Com [Don't forget the beginner's mind]
+//MIPJZ.Com [Don't forget the beginner's mind]
 //Copyright (c) 2017~2099 http://www.ssycms.com All rights reserved.namespace app\common\lib;
 use HTMLPurifier;
 use HTMLPurifier_Config;
