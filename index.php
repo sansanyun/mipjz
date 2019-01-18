@@ -5,6 +5,8 @@ if (!version_compare(PHP_VERSION,'5.4.0','ge')) {
     exit;
 }
 
+define('MIP_HOST',true);
+
 define('SITE_HOST',true);
 
 define('BAIDU',false);
@@ -12,6 +14,8 @@ define('BAIDU',false);
 define('APP_PATH', __DIR__ . '/app/');
 
 define('SITE_PATH', __DIR__ . '/');
+
+defined('MIP_ROOT') or define('MIP_ROOT', __DIR__ . '/');
 
 define('PUBLIC_PATH', __DIR__ . '/public/');
 

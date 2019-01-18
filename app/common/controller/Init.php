@@ -146,4 +146,32 @@ class Init extends Controller
         }
     }
 
+	protected function addonsFetch($template = '', $addonsName = '')
+    {
+        $this->assign('webUrl',config('domain'));
+        $this->assign('domain',config('domain'));
+        $this->assign('domains',config('domains'));
+        $this->assign('domainStatic',config('domainStatic'));
+        $this->assign('mipInfo',config('siteInfo'));
+        $this->assign('siteInfo',config('siteInfo'));
+        $tplName = config('view_name');
+        $this->assign('tplName',$tplName);
+        $this->assign('themeStatic', config('domainStatic') . '/' . config('assets') . '/' . $tplName);
+        $this->assign('config',config());
+        if (!$addonsName) {
+            $this->error('模板渲染，缺少参数','');
+        }
+        if ($template) {
+    		$viewPath = config('template.view_path');
+			if (strpos($viewPath, DS . 'html') !== false) {
+            	$template = '../../../addons' . DS . $addonsName  . DS . 'view' . DS . $template;
+			} else {
+            	$template = '../../addons' . DS . $addonsName  . DS . 'view' . DS . $template;
+			}
+        } else {
+            return false;
+        }
+        return $this->fetch($template);
+    }
+
 }

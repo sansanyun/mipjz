@@ -49,6 +49,9 @@
 	        </div>
 	        <ul class="header-switch">
 	            <li><a href="{$domainStatic}" target="_blank" class="link"><Icon type="ios-home-outline"></Icon> 网站主页</a></li>
+	            {if condition='$addInfo["mipzhanqun"]'}
+	            <a href="{$domain}/mipzhanqun/#/site" class="link"><Icon type="monitor"></Icon> 站群管理</a>
+	            {/if}
 	            <li v-for='item in headerList'>
 		            <router-link class="link" :to='"/addons/"+item.name+"/"+($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")' v-text='item.title'></router-link>
 		        </li>
@@ -102,6 +105,16 @@
     }
 </script>
 
+<script type="text/javascript">
+    var mipGlobal = {
+        domain: '{$domain}',
+        rewrite: '{$rewrite}',
+        siteInfo: {$siteInfoToJson},
+        mod: '{$mod}',
+        ctr: '{$ctr}',
+        act: '{$act}',
+    }
+</script>
 
 <script src="{$domainStatic}/{$assets}/common/js/components.js"></script>
 <script src="https://cdn.staticfile.org/iview/3.0.1/iview.min.js" type="text/javascript" charset="utf-8"></script>

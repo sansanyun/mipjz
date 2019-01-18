@@ -8,6 +8,11 @@ class ApiSetting extends Controller
 {
     public function status()
     {
+    	header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Credentials: true');
+        header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type, Content-Range,access-token, secret-key,access-key,dataId,uid,sid,terminal,X-File-Name,Content-Disposition, Content-Description');
+		
         return jsonSuccess('MIPCMS');
     }
 }
