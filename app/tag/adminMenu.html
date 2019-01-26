@@ -4,13 +4,13 @@
     </a>
     <ul class="sub-list">
         <li class="sub-item">
-            <router-link class="sub-link" to='/tag/tagList/'>全部标签</router-link>
+            <router-link class="sub-link" :to='"/tag/tagList/" + ($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>全部标签</router-link>
         </li>
         <li class="sub-item">
-            <router-link class="sub-link" to='/tag/tagPush/'>SEO推送</router-link>
+            <router-link class="sub-link" :to='"/tag/tagPush/" + ($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>SEO推送</router-link>
         </li>
         <li class="sub-item">
-            <router-link class="sub-link" to='/tag/tagCategory/'>分类管理</router-link>
+            <router-link class="sub-link" :to='"/tag/tagCategory/" + ($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>分类管理</router-link>
         </li>
     </ul>
 </li>

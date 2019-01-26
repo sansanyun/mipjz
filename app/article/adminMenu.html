@@ -4,16 +4,16 @@
     </a>
     <ul class="sub-list">
         <li class="sub-item">
-            <router-link class="sub-link" :to='"/article/articleList/"'>全部文章</router-link>
+            <router-link class="sub-link" :to='"/article/articleList/" + ($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>全部文章</router-link>
         </li>
         <li class="sub-item">
             <router-link class="sub-link" :to='"/article/articlePush/" + ($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>SEO推送</router-link>
         </li>
         <li class="sub-item">
-            <router-link class="sub-link" :to='"/article/articleCategory/"'>分类管理</router-link>
+            <router-link class="sub-link" :to='"/article/articleCategory/" + ($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>分类管理</router-link>
         </li>
         <li class="sub-item">
-            <router-link class="sub-link" :to='"/article/articleDiy/"'>自定义字段</router-link>
+            <router-link class="sub-link" :to='"/article/articleDiy/" + ($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>自定义字段</router-link>
         </li>
     </ul>
 </li>

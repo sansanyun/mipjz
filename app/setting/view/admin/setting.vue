@@ -189,37 +189,57 @@
             });
         },
         save: function() {
-        	if (this.setting.domain) {
-        		 if (this.setting.rewrite) {
-	        		axios.post(this.setting.httpType + this.setting.domain + '/setting/ApiSetting/status').then(res => {
-	        			if(res.data.code == 1 && res.data.msg == 'MIPCMS') {
-		                	this.onSubmitSetting();
-		                }
-	        		}, err => {
-	                 	this.$Message.error({content: '请检查域名、或伪静态配置是否正确',duration: 3});
-		            })
-        		 } else {
-	        		axios.post(this.setting.httpType + this.setting.domain + '/index.php?s=/setting/ApiSetting/status').then(res => {
-	        			if(res.data.code == 1 && res.data.msg == 'MIPCMS') {
-		                	this.onSubmitSetting();
-		                }
-	        		}, err => {
-	                 	this.$Message.error({content: '域名或http协议填写错误，请重新填写',duration: 3});
-		            })
-        		 }
-        	} else {
-        		if (this.setting.rewrite) {
-	        		axios.post('{$domainStatic}/setting/ApiSetting/status').then(res => {
-	        			if(res.data.code == 1 && res.data.msg == 'MIPCMS') {
-		                	this.onSubmitSetting();
-		                }
-	        		}, err => {
-	                 	this.$Message.error({content: '尚未配置伪静态规则，或伪静态配置错误，系统无法保存',duration: 3});
-		            })
-        		 } else {
-		           	this.onSubmitSetting();
-        		 }
-        	}
+            if (this.setting.articleDomain) {
+                if (this.setting.rewrite) {
+                    axios.post(this.setting.articleDomain + 'setting/ApiSetting/status').then(res => {
+                        if(res.data.code == 1 && res.data.msg == 'MIPCMS') {
+                            this.onSubmitSetting();
+                        }
+                    }, err => {
+                        this.$Message.error({content: '请检查运行地址（末尾要加/）、伪静态配置是否正确',duration: 3});
+                    })
+                 } else {
+                    axios.post(this.setting.articleDomain + 'index.php?s=/setting/ApiSetting/status').then(res => {
+                        if(res.data.code == 1 && res.data.msg == 'MIPCMS') {
+                            this.onSubmitSetting();
+                        }
+                    }, err => {
+                        this.$Message.error({content: '运行地址填写错误（末尾要加/），请重新填写',duration: 3});
+                    })
+                }
+            } else {
+                if (this.setting.domain) {
+                     if (this.setting.rewrite) {
+                        axios.post(this.setting.httpType + this.setting.domain + '/setting/ApiSetting/status').then(res => {
+                            if(res.data.code == 1 && res.data.msg == 'MIPCMS') {
+                                this.onSubmitSetting();
+                            }
+                        }, err => {
+                            this.$Message.error({content: '请检查域名、伪静态配置是否正确',duration: 3});
+                        })
+                     } else {
+                        axios.post(this.setting.httpType + this.setting.domain + '/index.php?s=/setting/ApiSetting/status').then(res => {
+                            if(res.data.code == 1 && res.data.msg == 'MIPCMS') {
+                                this.onSubmitSetting();
+                            }
+                        }, err => {
+                            this.$Message.error({content: '域名或http协议填写错误，请重新填写',duration: 3});
+                        })
+                     }
+                } else {
+                    if (this.setting.rewrite) {
+                        axios.post('{$domainStatic}/setting/ApiSetting/status').then(res => {
+                            if(res.data.code == 1 && res.data.msg == 'MIPCMS') {
+                                this.onSubmitSetting();
+                            }
+                        }, err => {
+                            this.$Message.error({content: '尚未配置伪静态规则，或伪静态配置错误，系统无法保存',duration: 3});
+                        })
+                     } else {
+                        this.onSubmitSetting();
+                     }
+                }
+            }
         },
             onSubmitSetting: function() {
                 this.$mip.ajax('{$domain}/setting/ApiAdminSetting/settingEdit', {

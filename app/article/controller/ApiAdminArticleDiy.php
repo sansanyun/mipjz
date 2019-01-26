@@ -103,11 +103,11 @@ class ApiAdminArticleDiy extends AdminBase
         } catch(\Exception $e) {
            return jsonError('添加失败');
         }
-        db($this->currentTable . 'Table')->insert(array(
-            'id' => uuid(),
-            'name' => $fieldTitle,
-            'value' => $field,
-            'type' => $fieldType,
+        db($this->currentTable . 'Table')->insert(array(
+            'id' => uuid(),
+            'name' => $fieldTitle,
+            'value' => $field,
+            'type' => $fieldType,
         ));
         return jsonSuccess('添加成功');
     }

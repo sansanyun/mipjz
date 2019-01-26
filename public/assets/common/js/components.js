@@ -122,11 +122,22 @@ var Message = {
     },
 };
 var mip = {
-    action(url, param) {
+    action(url, param,data) {
         return new Promise(function(resolve, reject) {
- 
+        	
+            axios.defaults.headers['dataId'] = '';
+            try {
+	            if (router) {
+		            if (router.app.$route.params.dataId && router.app.$route.params.dataId != 'undefined') {
+		                axios.defaults.headers['dataId'] = router.app.$route.params.dataId;
+		            }
+	            }
+			} catch (e) {
+			}
+            if (data) {
+                axios.defaults.headers['dataId'] = data.dataId;
+            }
             axios.post(url, param).then(function(res) {
-                
                 if(res.status == 200) {
                     if(res.data.code == undefined) {
                         iview.Message.error('请求无效');

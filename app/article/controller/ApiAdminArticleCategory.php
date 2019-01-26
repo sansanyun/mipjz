@@ -103,6 +103,7 @@ class ApiAdminArticleCategory extends AdminBase
     public function categoryList()
     {
         $data = $this->request->post();
+        $data['orderBy'] = $data['orderBy'] ? $data['orderBy'] : 'sort';
         $categoryList = model($this->itemCategoryModelNameSpace)->getCategory(0,$data['orderBy'],$data['order'],$data['limit']);
         return jsonSuccess('操作成功',['categoryList' => $categoryList]);
     }

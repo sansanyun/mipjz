@@ -32,7 +32,7 @@ class ArticlesCategory extends Controller
         config('articleCategoryListData',$categoryListData);
         
         $this->categoryListData = config('articleCategoryListData');
-        $this->categoryAllListData = config('articleCategoryListData');
+        $this->categoryAllListData = config('articleCategoryAllListData');
         $this->siteInfo = config('siteInfo');
     }
     public function categoryAdd($data)
@@ -117,7 +117,6 @@ class ArticlesCategory extends Controller
             if ($itemCategoryInfo) {
                 if ($itemCategoryInfo['pid'] == 0) {
                     $urlName = $itemCategoryInfo['url_name'];
-                    $itemCategoryInfo['children'] = db($this->itemCategory)->where('pid',$itemCategoryInfo['id'])->select();
                 } else {
                     $tempCategoryInfo = $this->getCategoryInfo($itemCategoryInfo['pid']);
                     $itemCategoryInfo['parent'] = $tempCategoryInfo;
@@ -186,15 +185,16 @@ class ArticlesCategory extends Controller
                 $itemCategoryList[$key]['value'] = $val['id'];
                 $itemCategoryList[$key]['label'] = $val['name'];
                 $itemCategoryList[$key]['content'] = htmlspecialchars_decode($val['content']);
-                
-                $itemCategoryList[$key]['sub'] = db($this->itemCategory)->where('pid',$val['id'])->select();
-                if ($itemCategoryList[$key]['sub']) {
-                    foreach ($itemCategoryList[$key]['sub'] as $k => $v) {
-                        $itemCategoryList[$key]['sub'][$k] = $this->getCategoryInfo($v['id']);
-                        $itemCategoryList[$key]['sub'][$k]['value'] = $v['id'];
-                        $itemCategoryList[$key]['sub'][$k]['label'] = $v['name'];
-                        $itemCategoryList[$key]['sub'][$k]['content'] = htmlspecialchars_decode($v['content']);
-                    }
+                if ($val['pid'] == 0) {
+                    $itemCategoryList[$key]['sub'] = db($this->itemCategory)->where('pid',$val['id'])->order($orderBy,$order)->select();
+                    if ($itemCategoryList[$key]['sub']) {
+                        foreach ($itemCategoryList[$key]['sub'] as $k => $v) {
+                            $itemCategoryList[$key]['sub'][$k] = $this->getCategoryInfo($v['id']);
+                            $itemCategoryList[$key]['sub'][$k]['value'] = $v['id'];
+                            $itemCategoryList[$key]['sub'][$k]['label'] = $v['name'];
+                            $itemCategoryList[$key]['sub'][$k]['content'] = htmlspecialchars_decode($v['content']);
+                        }
+                    } 
                 } else {
                     $itemCategoryList[$key]['sub'] = array();
                 }

@@ -39,9 +39,10 @@ class Admin extends Base
         if ($this->addonsList) {
             foreach ($this->addonsList as $key => $value) {
                 if ($value['status']) {
-                    $pageTemplatePath = ROOT_PATH . 'addons' . DS . $value['name'] . DS;
+                    $pageTemplatePath = ROOT_PATH . 'addons' . DS . $value['name'] . DS . 'view' . DS . 'admin' . DS;
                     if (is_dir($pageTemplatePath)) {
-                        foreach (fetch_file_lists($pageTemplatePath) as $file) {
+                        $dirList = fetch_file_lists($pageTemplatePath);
+                        foreach ($dirList as $file) {
                             if (strpos($file, '.routes') !== false && (strpos($file, DS . 'src') === false)) {
                                 $tempArray = explode(DS, $file);
                                 array_push($pages,['pagePath' => $file,'pageName' => $tempArray[count($tempArray) - 1]]);
@@ -62,7 +63,9 @@ class Admin extends Base
         
         $tempAdminMenu = [];
         $pageTemplatePath = ROOT_PATH . 'app' . DS;
-        foreach (fetch_file_lists($pageTemplatePath) as $key => $file) {
+        
+        $appList = fetch_file_lists($pageTemplatePath);
+        foreach ($appList as $key => $file) {
             if (strstr($file,'adminMenu.php')) {
                 $tempAdminMenu[] = require $file;
             }
@@ -89,7 +92,8 @@ class Admin extends Base
         $tempComponent = '';
         $pages = [];
         $pageTemplatePath = ROOT_PATH . 'app' . DS;
-        foreach (fetch_file_lists($pageTemplatePath) as $key => $file) {
+        $vueList = fetch_file_lists($pageTemplatePath);
+        foreach ($vueList as $key => $file) {
             if (strpos($file, '.vue') !== false) {
                 $tempArray = explode(DS, $file);
                 array_push($pages,['pagePath' => $file,'pageName' => $tempArray[count($tempArray) - 1]]);
@@ -121,7 +125,8 @@ class Admin extends Base
         $tempComponent = '';
         $pages = [];
         $pageTemplatePath = ROOT_PATH . 'app' . DS;
-        foreach (fetch_file_lists($pageTemplatePath) as $key => $file) {
+        $cssList = fetch_file_lists($pageTemplatePath);
+        foreach ($cssList as $key => $file) {
             if (strpos($file, '.vue') !== false) {
                 $tempArray = explode(DS, $file);
                 array_push($pages,['pagePath' => $file,'pageName' => $tempArray[count($tempArray) - 1]]);
@@ -148,9 +153,10 @@ class Admin extends Base
         if ($this->addonsList) {
             foreach ($this->addonsList as $key => $value) {
                 if ($value['status']) {
-                    $pageTemplatePath = ROOT_PATH . 'addons' . DS . $value['name'] . DS;
+                    $pageTemplatePath = ROOT_PATH . 'addons' . DS . $value['name'] . DS . 'view' . DS . 'admin' . DS;
                     if (is_dir($pageTemplatePath)) {
-                        foreach (fetch_file_lists($pageTemplatePath) as $file) {
+                        $addonsList = fetch_file_lists($pageTemplatePath);
+                        foreach ($addonsList as $file) {
                             if (strpos($file, '.vue') !== false && (strpos($file, DS . 'src') === false)) {
                                 $tempArray = explode(DS, $file);
                                 array_push($pages,['pagePath' => $file,'pageName' => $tempArray[count($tempArray) - 1]]);
@@ -187,9 +193,10 @@ class Admin extends Base
         if ($this->addonsList) {
             foreach ($this->addonsList as $key => $value) {
                 if ($value['status']) {
-                    $pageTemplatePath = ROOT_PATH . 'addons' . DS . $value['name'] . DS;
+                    $pageTemplatePath = ROOT_PATH . 'addons' . DS . $value['name'] . DS . 'view' . DS . 'admin' . DS;
                     if (is_dir($pageTemplatePath)) {
-                        foreach (fetch_file_lists($pageTemplatePath) as $file) {
+                        $addonsList = fetch_file_lists($pageTemplatePath);
+                        foreach ($addonsList as $file) {
                             if (strpos($file, '.vue') !== false && (strpos($file, DS . 'src') === false)) {
                                 $tempArray = explode(DS, $file);
                                 array_push($pages,['pagePath' => $file,'pageName' => $tempArray[count($tempArray) - 1]]);

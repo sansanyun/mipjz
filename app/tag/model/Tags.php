@@ -232,7 +232,7 @@ class Tags extends Controller
         }
         if ($itemList) {
             foreach($itemList as $k => $v) {
-                $itemList[$k]['tempId'] = $this->siteInfo['idStatus'] ? $v['uuid'] : $v['id'];
+                $itemList[$k]['tempId'] = config('siteInfo')['idStatus'] ? $v['uuid'] : $v['id'];
                 $itemList[$k]['categoryInfo'] = model($this->itemCategoryModelNameSpace)->getCategoryInfo($v['cid']);
                 $itemList[$k]['url'] = $this->getUrlByItemInfo($v);
             }
@@ -302,7 +302,7 @@ class Tags extends Controller
             $categoryInfo = model($this->itemCategoryModelNameSpace)->getCategoryInfo($cid);
             if ($categoryInfo['pid'] == 0) {
                 $html = '<ul class="list-unstyled d-flex ' . $ulClass . '">';
-                $html .= intval($isHome) === 1 ? '<li class="' . $liClass .'"><a href="'. $this->domain .'" title="'. $this->siteInfo['siteName'] .'">首页</a>'.$separator.'</li>' : '';
+                $html .= intval($isHome) === 1 ? '<li class="' . $liClass .'"><a href="'. $this->domain .'" title="'. config('siteInfo')['siteName'] .'">首页</a>'.$separator.'</li>' : '';
                 $html .= '<li class="' . $liClass .'">';
                 $html .= '<a href="'. $categoryInfo['url'] .'" title="'. $categoryInfo['name'] .'">';
                 $html .= $categoryInfo['name'];
@@ -312,7 +312,7 @@ class Tags extends Controller
                 return $html;
             } else {
                 $html = '<ul class="list-unstyled d-flex ' . $ulClass . '">';
-                $html .= intval($isHome) === 1 ? '<li class="' . $liClass .'"><a href="'. $this->domain .'" title="'. $this->siteInfo['siteName'] .'">首页</a>'.$separator.'</li>' : '';
+                $html .= intval($isHome) === 1 ? '<li class="' . $liClass .'"><a href="'. $this->domain .'" title="'. config('siteInfo')['siteName'] .'">首页</a>'.$separator.'</li>' : '';
                 $html .= '<li class="' . $liClass .'">';
                 $html .= '<a href="'. $categoryInfo['parent']['url'] .'" title="'. $categoryInfo['parent']['name'] .'">';
                 $html .= $categoryInfo['parent']['name'];
@@ -328,9 +328,9 @@ class Tags extends Controller
             }
         } else {
             $html = '<ul class="list-unstyled d-flex ' . $ulClass . '">';
-            $html .= intval($isHome) === 1 ? '<li class="' . $liClass .'"><a href="'. $this->domain .'" title="'. $this->siteInfo['siteName'] .'">首页</a>'.$separator.'</li>' : '';
+            $html .= intval($isHome) === 1 ? '<li class="' . $liClass .'"><a href="'. $this->domain .'" title="'. config('siteInfo')['siteName'] .'">首页</a>'.$separator.'</li>' : '';
             $html .= '<li class="' . $liClass .'">';
-            $html .= '<a href="'. config('domain') . '/' . $this->itemType . '/' .'" title="'. $this->itemName .'">';
+            $html .= '<a href="'. config('domain') . '/' . config('siteInfo')['tagModelUrl'] . '/' .'" title="'. $this->itemName .'">';
             $html .= $this->itemName;
             $html .= '</a>';
             $html .= '</li>';
@@ -405,13 +405,13 @@ class Tags extends Controller
     
     public function getUrlByItemInfo($item,$domain = null)
     {
-        $tempId = $this->siteInfo['idStatus'] ? $item['uuid'] : $item['id'];
+        $tempId = config('siteInfo')['idStatus'] ? $item['uuid'] : $item['id'];
         $tempId = $item['url_name'] ? $item['url_name'] : $tempId;
         if (config('isTagName')) {
             $tempId = $item['name'];
         }
         $domain = $domain ? $domain : config('domain');
-        $res = $domain . '/' . $this->itemType . '/' . $tempId . '/';
+        $res = $domain . '/' . config('siteInfo')['tagModelUrl'] . '/' . $tempId . '/';
         return $res;
     }
 

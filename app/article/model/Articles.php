@@ -157,7 +157,7 @@ class Articles extends Controller
             } else {
                 $itemInfo = $this->getImgList($itemInfo);
             }
-            $itemInfo['content'] = $this->getContentByItemContentId($itemInfo['uuid']);
+            $itemInfo['content'] = $this->getContentByArticleInfo($itemInfo);
             $itemInfo['description'] = $itemInfo['description'] ? $itemInfo['description'] : mb_substr(deleteHtml($itemInfo['content']),0,88,'utf-8');
             $itemInfo['mipContent'] = $this->getContentFilterByArticleInfo($itemInfo);
             $itemInfo['categoryInfo'] = model($this->itemCategoryModelNameSpace)->getCategoryInfo($itemInfo['cid']);
@@ -172,6 +172,9 @@ class Articles extends Controller
     {
         $tag = json_decode($tag,true);
         $whereArray = [];
+        if (!$tag) {
+            return false;
+        }
         foreach ($tag as $key => $val) {
             if (strpos($key, 'where') !== false) {
                 if (strpos($val, '=') !== false) {
@@ -267,7 +270,7 @@ class Articles extends Controller
         if ($itemList) {
             foreach($itemList as $k => $v) {
                 $itemList[$k]['tempId'] = $this->siteInfo['idStatus'] ? $v['uuid'] : $v['id'];
-                $itemList[$k]['userInfo'] = model('app\user\model\Users')->getItemInfo($v['uid']);
+                $itemList[$k]['userInfo'] = null;
                 $itemList[$k]['categoryInfo'] = model($this->itemCategoryModelNameSpace)->getCategoryInfo($v['cid']);
                 $itemList[$k]['is_recommend'] = intval($itemList[$k]['is_recommend']);
                 $itemList[$k]['description'] = $itemList[$k]['description'] ? $itemList[$k]['description'] : mb_substr(deleteHtml(htmlspecialchars_decode(db($this->itemContent)->where('id',$v['uuid'])->find()['content'])),0,88,'utf-8');
@@ -565,8 +568,8 @@ class Articles extends Controller
             return false;
         }
         $patern = '/^^((https|http|ftp)?:?\/\/)[^\s]+$/';
-        if (!isset($itemInfo['content']) || !$itemInfo['content']) {
-            $item['content'] = $this->getContentByItemContentId($item['uuid']);
+        if (!isset($item['content']) || !$item['content']) {
+            $item['content'] = $this->getContentByArticleInfo($item);
         }
         if (preg_match_all('/<img.*?src=[\'|\"](.*?)[\'|\"].*?[\/]?>/', $item['content'], $imgs)) {
             $item['imgCount'] = count($imgs[1]);
@@ -602,12 +605,15 @@ class Articles extends Controller
         return true;
     }
 
-    public function getContentByItemContentId($uuid)
+    public function getContentByArticleInfo($itemInfo)
     {
-        if (!$uuid) {
+        if (!$itemInfo) {
             return false;
+        }       
+        if (!isset($itemInfo['content']) || !$itemInfo['content']) {
+            $itemInfo['content'] = db($this->itemContent)->where('id',$itemInfo['uuid'])->find()['content'];
         }
-        return htmlspecialchars_decode(db($this->itemContent)->where('id',$uuid)->find()['content']);
+        return htmlspecialchars_decode($itemInfo['content']);
     }
     
     
