@@ -1,0 +1,9 @@
+{extend name="main/main"/} 
+{block name="main"}
+	<div class="container">        <section class="mip-box mip-box-default">            <h3 class="mip-box-heading">				            </h3>            <section class="mip-box-body">            	<div class="row">	 				{miptag:tags value='v' cid='$categoryInfo["id"]'}	 				<div class="col-3 mb-3">	 					<a href="{$v.url}">{$v.name}</a>	 				</div>	 				{/miptag:tags}            	</div>
+         	</section>
+        </section>    </div>
+{/block}
+{block name="script"}
+{__block__}
+{/block}

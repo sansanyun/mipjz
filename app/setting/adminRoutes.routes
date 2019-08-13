@@ -1,0 +1,30 @@
+{
+  name: 'setting',
+  meta: 'setting',
+  path: '/:mod/setting/:dataId?',
+  component: Setting
+},
+{
+  name: 'settingPush',
+  meta: 'setting',
+  path: '/:mod/settingPush/:dataId?',
+  component: SettingPush
+},
+{
+  name: 'domainSites',
+  meta: 'setting',
+  path: '/:mod/domainSites/:dataId?',
+  component: DomainSites
+},
+{
+  name: 'template',
+  meta: 'setting',
+  path: '/:mod/template/:dataId?',
+  component: Template
+},
+{
+  name: 'templateEdit',
+  meta: 'setting',
+  path: '/:mod/templateEdit/:dataId?',
+  component: TemplateEdit
+},

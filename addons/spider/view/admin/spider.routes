@@ -1,0 +1,5 @@
+{
+  name: 'spider',
+  path: '/:mod/spider/:dataId?',
+  component: Spider
+},

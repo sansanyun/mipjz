@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+// +----------------------------------------------------------------------
+// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2006-2016 http://thinkphp.cn All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: yunwuxin <448901948@qq.com>
+// +----------------------------------------------------------------------
+
+// 定义项目路径
+
+define('SITE_HOST',true);
+
+define('BAIDU',false);
+
+define('APP_PATH', __DIR__ . '/app/');
+
+define('PUBLIC_PATH', __DIR__ . '/public/');
+
+define('VENDOR_PATH',__DIR__ . '/system/vendor/');
+
+// 加载框架引导文件
+require __DIR__.'/system/thinkphp/console.php';

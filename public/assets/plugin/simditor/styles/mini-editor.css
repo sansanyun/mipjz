@@ -1,0 +1,666 @@
+.mini-editor .simditor {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.mini-editor .simditor.focus {
+  border: 1px solid #64a8e2;
+}
+.mini-editor .simditor.error {
+  border: 1px solid #c21;
+}
+.mini-editor .simditor.error.focus {
+  box-shadow: 0 0 6px rgba(204, 34, 17, 0.6);
+}
+.mini-editor .simditor .simditor-wrapper {
+  width: 100%;
+  border-radius: 5px;
+}
+.mini-editor .simditor .simditor-wrapper .simditor-placeholder {
+  padding: 10px 12px;
+}
+.mini-editor .simditor .simditor-body {
+  outline: 0px solid transparent;
+  min-height: 100px;
+  padding: 10px 12px 60px;
+}
+.mini-editor .simditor .simditor-body:focus {
+  outline: 0px solid transparent;
+}
+.mini-editor .simditor .simditor-toolbar {
+  border-radius: 5px 5px 0 0;
+}
+.mini-editor .simditor .simditor-toolbar > ul > li > span.separator {
+  background: #dfdfdf;
+  height: 16px;
+  margin: 7px 10px;
+}
+.mini-editor .simditor .simditor-toolbar > ul > li > .toolbar-item {
+  width: 30px;
+  height: 30px;
+  color: #999999;
+  font-size: 13px;
+  line-height: 30px;
+}
+.mini-editor .simditor .simditor-toolbar > ul > li > .toolbar-item.active {
+  background: transparent;
+}
+.mini-editor .simditor .simditor-toolbar > ul > li > .toolbar-item.active span {
+  color: #333333;
+}
+.mini-editor .simditor .simditor-toolbar > ul > li > .toolbar-item.toolbar-item-attachment {
+  position: relative;
+  overflow: hidden;
+  direction: ltr;
+}
+.mini-editor .simditor .simditor-toolbar > ul > li > .toolbar-item.toolbar-item-attachment > input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 100px;
+  cursor: pointer;
+}
+.mini-editor .simditor .simditor-toolbar > ul > li > .toolbar-item.toolbar-item-attachment span {
+  font-size: 15px;
+}
+.mini-editor .simditor .simditor-toolbar > ul > li > .toolbar-item.toolbar-item-title span:before {
+  font-size: 18px;
+}
+.mini-editor .simditor .simditor-toolbar > ul > li > .toolbar-item.toolbar-item-color {
+  font-size: 12px;
+}
+.mini-editor .simditor .simditor-toolbar > ul > li > .toolbar-item.toolbar-item-color span:before {
+  top: -1px;
+}
+.mini-editor .simditor .simditor-toolbar > ul > li > .toolbar-item.toolbar-item-color:after {
+  width: 12px;
+  height: 3px;
+  background: #dfdfdf;
+  top: 20px;
+  margin: 0 0 0 -6px;
+}
+.mini-editor .simditor .simditor-toolbar > ul > li > .toolbar-item.toolbar-item-color:hover:after {
+  background: #cfcfcf;
+}
+.mini-editor .simditor .simditor-toolbar > ul > li.menu-on .toolbar-item.toolbar-item-color:after {
+  background: #cfcfcf;
+}
+.mini-editor .simditor .simditor-toolbar .toolbar-menu {
+  top: 29px;
+}
+.mini-editor .simditor .simditor-toolbar .toolbar-menu ul {
+  min-width: 120px;
+  padding: 8px 1px;
+}
+.mini-editor .simditor .simditor-toolbar .toolbar-menu ul > li .menu-item {
+  font-size: 14px;
+}
+.mini-editor .simditor .simditor-toolbar .toolbar-menu.toolbar-menu-table {
+  background-color: #fff;
+}
+.mini-editor .simditor .simditor-toolbar .toolbar-menu.toolbar-menu-table .menu-create-table {
+  background-color: transparent;
+  padding: 5px;
+}
+.mini-editor .simditor .simditor-toolbar .toolbar-menu.toolbar-menu-image .menu-item-upload-image {
+  direction: ltr;
+}
+.mini-editor .simditor .simditor-toolbar .toolbar-menu.toolbar-menu-image .menu-item-upload-image input[type=file] {
+  margin: 0;
+  padding: 0;
+}
+.mini-editor .simditor .simditor-toolbar .toolbar-menu.toolbar-menu-attachment .menu-item-local-file {
+  position: relative;
+  overflow: hidden;
+  direction: ltr;
+}
+.mini-editor .simditor .simditor-toolbar .toolbar-menu.toolbar-menu-attachment .menu-item-local-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 100px;
+  cursor: pointer;
+}
+.mini-editor .simditor .simditor-popover .settings-field input[type=text] {
+  display: inline;
+  padding: 2px;
+  height: 22px;
+  border-radius: 2px;
+}
+.mini-editor .simditor .simditor-popover.link-popover .settings-field:last-child {
+  display: none;
+}
+.mini-editor .simditor .simditor-popover.image-popover .settings-field:last-child {
+  display: none;
+}
+.mini-editor .simditor .simditor-mention-popover {
+  border-radius: 3px;
+}
+.mini-editor .simditor .simditor-mention-popover .avatar {
+  float: left;
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+.mini-editor .simditor .simditor-attachments {
+  background: #f9f9f9;
+  overflow: hidden;
+  line-height: 1;
+  border-radius: 0 0 5px 5px;
+}
+.mini-editor .simditor .simditor-attachments .attachment {
+  *zoom: 1;
+  padding: 10px 15px;
+  border-top: 1px solid #eee;
+}
+.mini-editor .simditor .simditor-attachments .attachment:before,
+.mini-editor .simditor .simditor-attachments .attachment:after {
+  display: table;
+  content: "";
+}
+.mini-editor .simditor .simditor-attachments .attachment:after {
+  clear: both;
+  height: 0;
+  visibility: hidden;
+}
+.mini-editor .simditor .simditor-attachments .attachment.ui-sortable-helper {
+  background-color: #f0f1e6;
+  border-bottom: 1px solid #eee;
+}
+.mini-editor .simditor .simditor-attachments .attachment .thumb-wrap {
+  float: left;
+  height: 34px;
+  max-width: 200px;
+  overflow: hidden;
+}
+.mini-editor .simditor .simditor-attachments .attachment img {
+  display: block;
+  float: left;
+  height: 32px;
+  min-width: 20px;
+  border: 1px solid #ccc;
+}
+.mini-editor .simditor .simditor-attachments .attachment img.file {
+  height: 34px;
+  border: none;
+}
+.mini-editor .simditor .simditor-attachments .attachment .name,
+.mini-editor .simditor .simditor-attachments .attachment .size {
+  display: block;
+  float: left;
+  margin: 0 0 0 10px;
+  padding: 10px 0 0 0;
+  font-size: 12px;
+}
+.mini-editor .simditor .simditor-attachments .attachment .size {
+  color: #999999;
+}
+.mini-editor .simditor .simditor-attachments .attachment .progress-bar {
+  float: left;
+  border: 1px solid #cccccc;
+  background: #ffffff;
+  padding: 2px;
+  margin: 11px 0 0 10px;
+  border-radius: 10px;
+}
+.mini-editor .simditor .simditor-attachments .attachment .progress-bar div {
+  width: 100px;
+  height: 5px;
+}
+.mini-editor .simditor .simditor-attachments .attachment .progress-bar div span {
+  display: block;
+  width: 1%;
+  height: 100%;
+  background: #0f769f;
+  border-radius: 10px;
+}
+.mini-editor .simditor .simditor-attachments .attachment .percent {
+  display: block;
+  float: left;
+  font-size: 12px;
+  padding: 10px 0 0 0;
+  margin: 0 0 0 5px;
+}
+.mini-editor .simditor .simditor-attachments .attachment .link-cancel {
+  display: block;
+  float: left;
+  width: 12px;
+  height: 12px;
+  margin: 10px 0 0 10px;
+  text-indent: -9999px;
+  overflow: hidden;
+  opacity: 1;
+}
+.mini-editor .simditor .simditor-attachments .attachment .link-cancel:hover {
+  opacity: 0.8;
+}
+.mini-editor .simditor .simditor-attachments.ui-sortable {
+  cursor: move;
+}
+.mini-editor .simditor .simditor-attachments.ui-sortable-disabled {
+  cursor: default;
+}
+.mini-editor .simditor .simditor-attachments .attachment-placeholder {
+  background-color: #fff;
+  height: 54px;
+}
+.mini-editor .simditor .simditor-body,
+.mini-editor .editor-style {
+  font-size: 15px;
+  line-height: 1.6;
+}
+.mini-editor .editor-style img {
+  max-width: 100%;
+  height: 100%;
+}
+.mini-editor .simditor .simditor-body h1,
+.mini-editor .simditor .simditor-body h2,
+.mini-editor .simditor .simditor-body h3,
+.mini-editor .simditor .simditor-body h4,
+.mini-editor .simditor .simditor-body h5,
+.mini-editor .simditor .simditor-body h6,
+.mini-editor .editor-style h1,
+.mini-editor .editor-style h2,
+.mini-editor .editor-style h3,
+.mini-editor .editor-style h4,
+.mini-editor .editor-style h5,
+.mini-editor .editor-style h6 {
+  font-weight: normal;
+  color: #333 !important;
+  text-align: left !important;
+  line-height: 1.6 !important;
+}
+.mini-editor .simditor .simditor-body h1,
+.mini-editor .editor-style h1 {
+  margin: 0.67em 0 !important;
+  font-size: 1.8em !important;
+  font-weight: bold;
+}
+.mini-editor .simditor .simditor-body h2,
+.mini-editor .editor-style h2 {
+  margin: 0.83em 0 !important;
+  font-size: 1.5em !important;
+}
+.mini-editor .simditor .simditor-body h3,
+.mini-editor .editor-style h3 {
+  margin: 1em 0 !important;
+  font-size: 1.2em !important;
+}
+.mini-editor .simditor .simditor-body h4,
+.mini-editor .simditor .simditor-body h5,
+.mini-editor .simditor .simditor-body h6,
+.mini-editor .editor-style h4,
+.mini-editor .editor-style h5,
+.mini-editor .editor-style h6 {
+  margin: 1.6em 0 1em !important;
+  font-size: 1em !important;
+}
+.mini-editor .simditor .simditor-body b,
+.mini-editor .simditor .simditor-body strong,
+.mini-editor .editor-style b,
+.mini-editor .editor-style strong {
+  font-weight: bold !important;
+}
+.mini-editor .simditor .simditor-body i,
+.mini-editor .simditor .simditor-body em,
+.mini-editor .editor-style i,
+.mini-editor .editor-style em {
+  font-style: italic !important;
+}
+.mini-editor .simditor .simditor-body ul,
+.mini-editor .simditor .simditor-body ol,
+.mini-editor .editor-style ul,
+.mini-editor .editor-style ol {
+  margin: 0 0 24px 6px;
+  padding-left: 40px;
+}
+.mini-editor .simditor .simditor-body li,
+.mini-editor .editor-style li {
+  margin-bottom: 0.2em;
+}
+.mini-editor .simditor .simditor-body li ul,
+.mini-editor .simditor .simditor-body li ol,
+.mini-editor .editor-style li ul,
+.mini-editor .editor-style li ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 14px;
+  padding-left: 16px;
+}
+.mini-editor .simditor .simditor-body li p,
+.mini-editor .editor-style li p {
+  margin: 0.4em 0 0.6em;
+}
+.mini-editor .simditor .simditor-body li p:last-child,
+.mini-editor .editor-style li p:last-child {
+  margin: 0;
+}
+.mini-editor .simditor .simditor-body blockquote,
+.mini-editor .editor-style blockquote {
+  margin: 0 0 15px 15px;
+}
+.mini-editor .simditor .simditor-body blockquote p,
+.mini-editor .editor-style blockquote p {
+  margin: 2px 0;
+}
+.mini-editor .simditor .simditor-body pre,
+.mini-editor .editor-style pre {
+  margin: 1.64em 0;
+  padding: 7px 10px;
+  line-height: 1.5;
+  font-size: 0.9em;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  color: #4c4c4c;
+  background-color: #f9f9f9;
+  border-left: 3px solid #dadada;
+  border-radius: 0;
+}
+.mini-editor .simditor .simditor-body hr,
+.mini-editor .editor-style hr {
+  margin: 1.5em 0;
+}
+.mini-editor .simditor .simditor-body table,
+.mini-editor .editor-style table {
+  margin-bottom: 1.5em;
+  font-size: 0.96em;
+}
+.mini-editor .simditor .simditor-body tr:nth-child(even),
+.mini-editor .editor-style tr:nth-child(even) {
+  background-color: #efefef;
+}
+.mini-editor .simditor .simditor-body img[data-emoji],
+.mini-editor .editor-style img[data-emoji] {
+  border: none;
+  box-sizing: initial;
+  vertical-align: text-bottom;
+}
+.mini-editor .editor-style img[data-emoji],
+.mini-editor .simditor .simditor-body img[data-emoji] {
+  width: 1.1em;
+  height: 1.1em;
+  vertical-align: text-bottom;
+}
+.mini-editor .editor-style img[data-emoji][src$=".gif"],
+.mini-editor .simditor .simditor-body img[data-emoji][src$=".gif"] {
+  width: 40px;
+  height: 40px;
+}
+.mini-editor .simditor .simditor-toolbar .emoji-list img {
+  width: 22px;
+  height: 22px;
+}
+.mini-editor .simditor .simditor-toolbar .toolbar-menu-emoji {
+  width: 305px;
+}
+.mini-editor .simditor .simditor-toolbar .toolbar-menu:before {
+  width: 30px;
+}
+.mini-editor .comment .simditor .simditor-toolbar .toolbar-menu:before {
+  width: 30px;
+}
+.mini-editor .simple-stack.simple-stack-fluid {
+  margin: 0 40px;
+}
+.mini-editor .simple-dialog .simple-dialog-remove {
+  top: -8px;
+  right: -8px;
+  width: 20px;
+  padding: 0;
+  color: #fff;
+  font-size: 15px;
+  line-height: 20px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 9;
+  border-radius: 50%;
+}
+.mini-editor .simple-dialog .simple-dialog-remove:hover {
+  color: #f8f8f8;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.mini-editor .simple-dialog .form p.error {
+  float: left;
+}
+.mini-editor .simple-dialog .form-del-team-confirm em,
+.mini-editor .simple-dialog .form-del-project-confirm em {
+  color: red;
+}
+.mini-editor .simple-dialog .form-del-team-confirm input,
+.mini-editor .simple-dialog .form-del-project-confirm input {
+  margin: 20px 0 0;
+}
+.mini-editor .simple-dialog .form-del-team-confirm p.error,
+.mini-editor .simple-dialog .form-del-project-confirm p.error {
+  margin: 5px 0 0 2px;
+  font-size: 12px;
+  color: #cc2211;
+}
+.mini-editor .simple-dialog .change-lanhu-dialog .simple-select {
+  margin: 10px 0;
+  width: 100%;
+}
+.mini-editor .simple-dialog .form-lanhu-design #lanhus_design_name {
+  width: 384px;
+}
+.mini-editor .simple-dialog .form-lanhu-design label {
+  font-size: 12px;
+  color: #999;
+}
+.mini-editor .simple-popover.popover-actions-menu .simple-popover-content {
+  padding: 5px 0;
+  min-width: 50px;
+  text-align: center;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.mini-editor .simple-popover.popover-actions-menu a {
+  display: block;
+  padding: 3px 10px;
+  color: #555;
+  font-size: 12px;
+}
+.mini-editor .simple-popover.popover-actions-menu a:hover {
+  color: #5bc4c7;
+  background: #f6f6f6;
+}
+.mini-editor .simple-popover h3 {
+  padding: 5px 0 5px 0;
+  font-size: 12px;
+  color: #000000;
+  line-height: 1;
+  font-weight: bold;
+  border-bottom: 1px solid #dddddd;
+}
+.mini-editor .simple-popover .popover-buttons {
+  margin: 15px 0 5px 0;
+  *zoom: 1;
+}
+.mini-editor .simple-popover .popover-buttons:before,
+.mini-editor .simple-popover .popover-buttons:after {
+  display: table;
+  content: "";
+}
+.mini-editor .simple-popover .popover-buttons:after {
+  clear: both;
+  height: 0;
+  visibility: hidden;
+}
+.mini-editor .simple-popover .popover-buttons button {
+  float: left;
+  padding: 6px 10px;
+}
+.mini-editor .simple-popover .popover-buttons a {
+  margin: 0 0 0 10px;
+  display: block;
+  float: left;
+  color: #555;
+  line-height: 32px;
+  font-size: 12px;
+}
+.mini-editor .simple-popover .popover-buttons a:hover {
+  color: #06a;
+}
+.mini-editor .simple-popover .links .link {
+  cursor: pointer;
+}
+.mini-editor .simple-select .select-result {
+  height: 26px;
+  padding: 5px 6px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+.mini-editor .simple-select.selected.require-select .link-expand {
+  display: none !important;
+}
+.mini-editor .simple-select.selected.require-select .link-clear {
+  display: block !important;
+}
+.mini-editor .simple-momentpicker {
+  border: 1px solid #dddddd;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+}
+.mini-editor .simple-momentpicker.no-border {
+  border: 0;
+  box-shadow: none;
+}
+.mini-editor .simple-momentpicker.date-picker table.calendar td.datepicker-day a {
+  background-color: transparent;
+}
+.mini-editor .simple-momentpicker.date-picker table.calendar td.datepicker-day a.other,
+.mini-editor .simple-momentpicker.date-picker table.calendar td.datepicker-day a.disabled {
+  color: #E6E6E6;
+}
+.mini-editor .simple-momentpicker.date-picker table.calendar td.datepicker-day a.selected {
+  background-color: #f4f7ed;
+}
+.mini-editor .simple-momentpicker.date-picker table.calendar td.datepicker-day a:hover {
+  background-color: #F3F3F3;
+}
+.mini-editor .simple-momentpicker.date-picker .calendar-menu .menu-item {
+  border-radius: 2px;
+}
+.mini-editor .simple-momentpicker.date-picker .calendar-menu .menu-item:hover {
+  background-color: #F3F3F3;
+}
+.mini-editor .simple-momentpicker .disabled .panel-item {
+  cursor: not-allow;
+}
+.mini-editor .simple-momentpicker.time-picker,
+.mini-editor .simple-momentpicker.date-picker,
+.mini-editor .simple-momentpicker.month-picker {
+  width: 194px;
+}
+.mini-editor .simple-popover.dropdown-list.scrollable .menu {
+  min-width: 150px;
+}
+.mini-editor .simple-popover.dropdown-list.scrollable .menu.scroll {
+  overflow-y: auto;
+  max-height: 250px;
+}
+.mini-editor .simple-popover.dropdown-list .simple-popover-content {
+  padding: 5px 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.mini-editor .simple-popover.dropdown-list .menu {
+  min-width: 120px;
+}
+.mini-editor .simple-popover.dropdown-list .menu a {
+  display: block;
+  padding: 5px 10px 5px 12px;
+  font-size: 14px;
+  color: #555;
+}
+.mini-editor .simple-popover.dropdown-list .menu a:hover {
+  color: #5bc4c7;
+  background: #f6f6f6;
+}
+.mini-editor .simple-popover.dropdown-list .menu a .selected {
+  float: right;
+  color: #64b52f;
+  line-height: 21px;
+}
+.mini-editor .simple-popover.dropdown-list .menu li + li.small {
+  margin-top: 0;
+}
+.mini-editor .simple-popover.dropdown-list .menu li.small a {
+  font-size: 12px;
+  color: #999;
+}
+.mini-editor .simple-popover.dropdown-list .menu li.part-line {
+  height: 1px;
+  width: 100%;
+  margin: 6px 0 5px;
+  border-top: 1px dotted #ddd;
+}
+.mini-editor .simple-popover.dropdown-list .menu .title {
+  position: relative;
+  margin: 5px;
+  font-size: 12px;
+  color: #999;
+  z-index: 1;
+}
+.mini-editor .simple-popover.dropdown-list .menu .title::before {
+  content: '';
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
+  border-top: 1px dotted #ddd;
+}
+.mini-editor .simple-popover.dropdown-list .menu .title span {
+  padding-right: 3px;
+  background-color: #fff;
+}
+.mini-editor .simple-popover.dropdown-list.no-arrow .simple-popover-arrow {
+  display: none;
+}
+.mini-editor .simditor-checklist input[type=checkbox] {
+  display: none;
+}
+.mini-editor .simple-loading .icon-circle-o-notch {
+  -webkit-animation: twr-spin 2s infinite linear;
+  animation: twr-spin 2s infinite linear;
+}
+.mini-editor .simple-gallery .icon-rotate,
+.mini-editor .simple-gallery .icon-external-link,
+.mini-editor .simple-gallery .icon-download,
+.mini-editor .simple-dialog .icon-cross,
+.mini-editor .simple-select .icon-caret-down,
+.mini-editor .simple-select .icon-delete,
+.mini-editor .simple-tree .icon-caret-right,
+.mini-editor .simple-tree .icon-caret-down,
+.mini-editor .simple-loading .icon-circle-o-notch,
+.mini-editor .simple-momentpicker .icon-chevron-left,
+.mini-editor .simple-momentpicker .icon-chevron-right,
+.mini-editor .simple-subtasks .icon-add-task {
+  display: inline-block;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+}
+.mini-editor .simple-gallery .icon-rotate span,
+.mini-editor .simple-gallery .icon-external-link span,
+.mini-editor .simple-gallery .icon-download span,
+.mini-editor .simple-dialog .icon-cross span,
+.mini-editor .simple-select .icon-caret-down span,
+.mini-editor .simple-select .icon-delete span,
+.mini-editor .simple-tree .icon-caret-right span,
+.mini-editor .simple-tree .icon-caret-down span,
+.mini-editor .simple-loading .icon-circle-o-notch span,
+.mini-editor .simple-momentpicker .icon-chevron-left span,
+.mini-editor .simple-momentpicker .icon-chevron-right span,
+.mini-editor .simple-subtasks .icon-add-task span {
+  display: none !important;
+}

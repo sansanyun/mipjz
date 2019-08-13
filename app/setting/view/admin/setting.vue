@@ -1,0 +1,388 @@
+<style>
+	
+</style>
+<template>
+    <div>
+        <header class="mipcms-container-header clearfix">
+            <div class="header-group">
+                <h4 class="title">设置</h4> <h5 class="sub-title">系统设置</h5>
+            </div>
+            <div class="float-right">
+                <button type="button" class="ivu-btn ivu-btn-primary ivu-btn-circle" @click='save'>
+                    <span>立即保存</span>
+                </button>
+            </div>
+        </header>
+        
+        <main class="mipcms-container-body" style="height: calc(100% - 50px)">
+        <section class="mip-box">
+            <section class="mip-box-heading">
+                <h3>网站配置</h3>
+            </section>
+            <section class="mip-box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <i-form label-position="top">
+                            <div class="row">
+                                <div class="col-md-1">
+                                   <Form-item label="站点状态">
+                                        <i-switch v-model="setting.systemStatus">
+                                            <span slot="open">开</span>
+                                            <span slot="close">关</span>
+                                        </i-switch>
+                                    </Form-item>
+                                </div>
+                                <div class="col-md-1">
+                                    <Form-item label="代码压缩">
+                                        <i-switch v-model="setting.codeCompression">
+                                            <span slot="open">开</span>
+                                            <span slot="close">关</span>
+                                        </i-switch>
+                                    </Form-item>
+                                </div>
+                                <div class="col-md-1">
+                                    <Form-item label="伪静态">
+                                        <i-switch v-model="setting.rewrite">
+                                            <span slot="open">开</span>
+                                            <span slot="close">关</span>
+                                        </i-switch>
+                                    </Form-item>
+                                </div>
+                                <div class="col-md-1">
+                                    <Form-item label="UUID模式">
+                                        <i-switch v-model="setting.idStatus">
+                                            <span slot="open">开</span>
+                                            <span slot="close">关</span>
+                                        </i-switch>
+                                    </Form-item>
+                                </div>
+                                <div class="col-md-1">
+                                    <Form-item label="自定义URL">
+                                        <i-switch v-model="setting.diyUrlStatus">
+                                            <span slot="open">开</span>
+                                            <span slot="close">关</span>
+                                        </i-switch>
+                                    </Form-item>
+                                </div>
+                                
+                                <div class="col-md-1">
+                                    <Form-item label="登录验证码">
+                                        <i-switch v-model="setting.loginCaptcha">
+                                            <span slot="open">开</span>
+                                            <span slot="close">关</span>
+                                        </i-switch>
+                                    </Form-item>
+                                </div>
+                                
+                            </div>
+                        </i-form>
+                    </div>
+                </div>
+            </section>
+        </section>
+        
+        <section class="mip-box">
+            <section class="mip-box-heading">
+                <h3>基本设置</h3>
+            </section>
+            <section class="mip-box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <i-form label-position="top">
+                            <Form-item label="运行地址(仅用于目录站)">
+                                <i-input v-model="setting.articleDomain" placeholder='仅用于目录建站使用，非目录建站，请勿填写'></i-input>
+                            </Form-item>
+                            <Form-item label="网站域名">
+                                <i-input v-model="setting.domain" placeholder='例如：www.mipjz.com 可选项（目录建站必填项）'>
+                                <i-select v-model="setting.httpType" slot="prepend" style="width: 80px">
+                                    <i-option value="http://">http://</i-option>
+                                    <i-option value="https://">https://</i-option>
+                                </i-select>
+                                </i-input>
+                            </Form-item>
+                            <Form-item label="网站名称">
+                                <i-input v-model="setting.siteName"></i-input>
+                            </Form-item>
+                        </i-form>
+                    </div>
+                </div>
+            </section>
+        </section>
+        
+        <section class="mip-box">
+            <section class="mip-box-heading">
+                <h3>关键词描述</h3>
+            </section>
+            <section class="mip-box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <i-form label-position="top">
+                            <Form-item label="网站副标题">
+                                <i-input v-model="setting.indexTitle" placeholder=" - 国内最大的互联网创业交流社区"></i-input>
+                            </Form-item>
+                            <Form-item label="网站关键词">
+                                <i-input type="textarea" v-model="setting.keywords"></i-input>
+                            </Form-item>
+                            <Form-item label="网站描述">
+                                <i-input type="textarea" v-model="setting.description"></i-input>
+                            </Form-item>
+                        </i-form>
+                    </div>
+                </div>
+            </section>
+        </section>
+        
+        <section class="mip-box">
+            <section class="mip-box-heading">
+                <h3>其他</h3>
+            </section>
+            <section class="mip-box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <i-form label-position="top">
+                            <Form-Item label="ICP备案号">
+                                <i-input v-model="setting.icp"></i-input>
+                            </Form-Item>
+                            <Form-Item label="流量统计代码">
+                                <i-input type="textarea" v-model="setting.statistical"  placeholder='<mip-stats-baidu token="02890d4a309827eb62bc3335b2b28f7f"></mip-stats-baidu>'></i-input>
+                            </Form-Item>
+                        </i-form>
+                    </div>
+                    <div class="col-md-6">
+                        <i-form label-position="top">
+                            <Form-Item label="备注说明：">
+                                您输入的流量统计代码必须符合MIP标准，否则将对整站页面造成MIP校验不合格问题，默认支持百度统计，其余统计请查看官方标准。输入示例：<br>{{codeDemo}}
+                            </Form-Item>
+                        </i-form>
+        
+                    </div>
+                </div>
+            </section>
+        </section>
+        </main>
+    </div>
+</template>
+
+<script>
+    export default {
+     data () {
+       return {
+            setting: '',
+            codeDemo: '<mip-stats-baidu token="02890d4a309827eb62bc3335b2b28f7f"></mip-stats-baidu>',
+            zhanqunInfo: '',
+       }
+     },
+    mounted: function() {
+    	if (this.$route.params.dataId) {
+        	this.getZhanqunInfo(this.$route.params.dataId);
+     	}
+    	this.getSettingData();
+    },
+    methods: {
+        getZhanqunInfo(id) {
+            this.$mip.ajax('{$domain}/zhanqun/ApiAdminMipzhanqun/itemInfo', {
+                id : id,
+            }).then(res => {
+                if(res.code == 1) {
+                    this.zhanqunInfo = res.data;
+                }
+            });
+        },
+        save: function() {
+            if (this.setting.articleDomain) {
+                if (this.setting.rewrite) {
+                    axios.post(this.setting.articleDomain + 'setting/ApiSetting/status').then(res => {
+                        if(res.data.code == 1 && res.data.msg == 'MIPCMS') {
+                            this.onSubmitSetting();
+                        }
+                    }, err => {
+                        this.$Message.error({content: '请检查运行地址（末尾要加/）、伪静态配置是否正确',duration: 3});
+                    })
+                 } else {
+                    axios.post(this.setting.articleDomain + 'index.php?s=/setting/ApiSetting/status').then(res => {
+                        if(res.data.code == 1 && res.data.msg == 'MIPCMS') {
+                            this.onSubmitSetting();
+                        }
+                    }, err => {
+                        this.$Message.error({content: '运行地址填写错误（末尾要加/），请重新填写',duration: 3});
+                    })
+                }
+            } else {
+                if (this.setting.domain) {
+                     if (this.setting.rewrite) {
+                        axios.post(this.setting.httpType + this.setting.domain + '/setting/ApiSetting/status').then(res => {
+                            if(res.data.code == 1 && res.data.msg == 'MIPCMS') {
+                                this.onSubmitSetting();
+                            }
+                        }, err => {
+                            this.$Message.error({content: '请检查域名、伪静态配置是否正确',duration: 3});
+                        })
+                     } else {
+                        axios.post(this.setting.httpType + this.setting.domain + '/index.php?s=/setting/ApiSetting/status').then(res => {
+                            if(res.data.code == 1 && res.data.msg == 'MIPCMS') {
+                                this.onSubmitSetting();
+                            }
+                        }, err => {
+                            this.$Message.error({content: '域名或http协议填写错误，请重新填写',duration: 3});
+                        })
+                     }
+                } else {
+                    if (this.setting.rewrite) {
+                        axios.post('{$domainStatic}/setting/ApiSetting/status').then(res => {
+                            if(res.data.code == 1 && res.data.msg == 'MIPCMS') {
+                                this.onSubmitSetting();
+                            }
+                        }, err => {
+                            this.$Message.error({content: '尚未配置伪静态规则，或伪静态配置错误，系统无法保存',duration: 3});
+                        })
+                     } else {
+                        this.onSubmitSetting();
+                     }
+                }
+            }
+        },
+            onSubmitSetting: function() {
+                this.$mip.ajax('{$domain}/setting/ApiAdminSetting/settingEdit', {
+                    setting: JSON.stringify(this.setting),
+                }).then(res => {
+                    if(res.code == 1) {
+                        if (this.zhanqunInfo) {
+                            this.$mip.ajax('{$domain}/zhanqun/ApiAdminMipzhanqun/itemEdit', {
+                            	id: this.zhanqunInfo.id,
+                            	title: this.setting.siteName,
+                            	domain: this.setting.domain,
+                            	httpType: this.setting.httpType,
+                            }).then(res => {
+                                if(res.code == 1) {
+                                    this.$Message.success('保存成功');
+                                }
+                            });
+                        } else {
+                            this.$Message.success('保存成功');
+                        }
+                    }
+                });
+            },
+            getSettingData: function() {
+                this.loading = true;
+                this.$mip.ajax('{$domain}/setting/ApiAdminSetting/settingSelect', {
+
+                }).then(res => {
+                    this.loading = false;
+                    if(res.code == 1) {
+                        var temp = res.data;
+                        if(temp.systemStatus) {
+                            temp.systemStatus = true;
+                        } else {
+                            temp.systemStatus = false;
+                        }
+                        if(temp.loginStatus) {
+                            temp.loginStatus = true;
+                        } else {
+                            temp.loginStatus = false;
+                        }
+                        if(temp.registerStatus) {
+                            temp.registerStatus = true;
+                        } else {
+                            temp.registerStatus = false;
+                        }
+                        if(temp.idStatus) {
+                            temp.idStatus = true;
+                        } else {
+                            temp.idStatus = false;
+                        }
+                        if(temp.codeCompression) {
+                            temp.codeCompression = true;
+                        } else {
+                            temp.codeCompression = false;
+                        }
+                        if(temp.baiduSpider) {
+                            temp.baiduSpider = true;
+                        } else {
+                            temp.baiduSpider = false;
+                        }
+                        if(temp.articlePages) {
+                            temp.articlePages = true;
+                        } else {
+                            temp.articlePages = false;
+                        }
+                        if(temp.mipPostStatus) {
+                            temp.mipPostStatus = true;
+                        } else {
+                            temp.mipPostStatus = false;
+                        }
+                        if(temp.baiduYuanChuangStatus) {
+                            temp.baiduYuanChuangStatus = true;
+                        } else {
+                            temp.baiduYuanChuangStatus = false;
+                        }
+                        if(temp.guanfanghaoStatus) {
+                            temp.guanfanghaoStatus = true;
+                        } else {
+                            temp.guanfanghaoStatus = false;
+                        }
+                        if(temp.guanfanghaoStatusPost) {
+                            temp.guanfanghaoStatusPost = true;
+                        } else {
+                            temp.guanfanghaoStatusPost = false;
+                        }
+
+                        if(temp.baiduTimePcStatus) {
+                            temp.baiduTimePcStatus = true;
+                        } else {
+                            temp.baiduTimePcStatus = false;
+                        }
+                        if(temp.baiduTimeMStatus) {
+                            temp.baiduTimeMStatus = true;
+                        } else {
+                            temp.baiduTimeMStatus = false;
+                        }
+                        if(temp.diyUrlStatus) {
+                            temp.diyUrlStatus = true;
+                        } else {
+                            temp.diyUrlStatus = false;
+                        }
+                        if(temp.urlCategory) {
+                            temp.urlCategory = true;
+                        } else {
+                            temp.urlCategory = false;
+                        }
+
+                        if(temp.aritcleLevelRemove) {
+                            temp.aritcleLevelRemove = true;
+                        } else {
+                            temp.aritcleLevelRemove = false;
+                        }
+
+                        if(temp.superSites) {
+                            temp.superSites = true;
+                        } else {
+                            temp.superSites = false;
+                        }
+                        
+                        if(temp.superTpl) {
+                            temp.superTpl = true;
+                        } else {
+                            temp.superTpl = false;
+                        }
+
+                        if(temp.rewrite) {
+                            temp.rewrite = true;
+                        } else {
+                            temp.rewrite = false;
+                        }
+                        
+                        if(temp.loginCaptcha) {
+                            temp.loginCaptcha = true;
+                        } else {
+                            temp.loginCaptcha = false;
+                        }
+                        
+                        temp.baiduSearchPcUrl = '/baiduSitemapPc.xml';
+                        this.setting = temp;
+                    }
+                });
+            },
+     }
+    }
+</script>

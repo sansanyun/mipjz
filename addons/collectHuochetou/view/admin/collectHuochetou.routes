@@ -1,0 +1,5 @@
+{
+  name: 'collectHuochetou',
+  path: '/:mod/collectHuochetou/:dataId?',
+  component: CollectHuochetou
+},

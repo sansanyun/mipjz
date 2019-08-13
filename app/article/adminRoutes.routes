@@ -1,0 +1,20 @@
+{
+  name: 'articleList',
+  path: '/:mod/articleList/:dataId?',
+  component: ArticleList
+},
+{
+  name: 'articleCategory',
+  path: '/:mod/articleCategory/:dataId?',
+  component: ArticleCategory
+},
+{
+  name: 'articleDiy',
+  path: '/:mod/articleDiy/:dataId?',
+  component: ArticleDiy
+},
+{
+  name: 'articlePush',
+  path: '/:mod/articlePush/:dataId?',
+  component: ArticlePush
+},

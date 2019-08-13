@@ -1,0 +1,32 @@
+{extend name="main/main"/}
+
+<style type="text/css">
+/*示例当前页面CSS代码*/
+{block name="style"}{__block__}
+    .demo-title {
+        text-align: center;
+    }
+    .mipcms-detail-body img{
+    	max-width: 100%;
+    	width: auto;
+    }
+{/block}
+</style>
+
+{block name="main"}
+<div class="container">
+    <section class="mip-box mip-box-main">
+        <section class="mip-box-heading">
+             <h1 class="detail-title demo-title">{$itemInfo['title']}</h1>
+        </section>
+        <section class="mip-box-body mipcms-detail-body">
+           {$itemInfo['mipContent']}
+        </section>
+    </section>
+</div>
+{/block}
+
+{block name="script"}
+{__block__}
+
+{/block}

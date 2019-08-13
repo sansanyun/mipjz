@@ -1,0 +1,22 @@
+<li class="li has-sub" :class='{"active":$route.meta=="setting"}'>
+    <a class="list-link"><i class="ion-ios-gear-outline"></i> 设置
+       <div class="list-icon"><i class="triangle-facing-left"></i><i class="triangle-facing-bottom"></i></div>
+    </a>
+    <ul class="sub-list">
+        <li class="sub-item">
+            <router-link class="sub-link" :to='"/setting/setting/" + ($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>站点设置</router-link>
+        </li>
+        <li class="sub-item">
+            <router-link class="sub-link" :to='"/setting/settingPush/" + ($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>推送设置</router-link>
+        </li>
+        <li class="sub-item">
+            <router-link class="sub-link" :to='"/setting/domainSites/" + ($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>多域名站</router-link>
+        </li>
+        <li class="sub-item">
+            <router-link class="sub-link" :to='"/setting/template/" + ($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>模板切换</router-link>
+        </li>
+        <!--<li class="sub-item">
+            <router-link class="sub-link" :to='"/setting/templateEdit/" + ($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>模板编辑</router-link>
+        </li>-->
+    </ul>
+</li>
