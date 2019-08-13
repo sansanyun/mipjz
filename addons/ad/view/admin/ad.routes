@@ -1,5 +1,0 @@
-{
-  name: 'ad',
-  path: '/:mod/ad/:dataId?',
-  component: Ad
-},

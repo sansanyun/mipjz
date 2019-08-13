@@ -1,5 +1,0 @@
-{
-  name: '/',
-  path: '/:dataId?',
-  component: Index
-},

@@ -1,5 +1,0 @@
-{
-  name: 'addons/addons',
-  path: '/:mod/addons/:dataId?',
-  component: Addons
-},
