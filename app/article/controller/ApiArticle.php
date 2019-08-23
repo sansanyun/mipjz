@@ -13,6 +13,20 @@ class ApiArticle extends Base
         $this->item = 'Articles';
         $this->itemType = 'article';
     }
+    
+    public function getCategoryList()
+    {
+        $data = $this->request->param();
+        $data['orderBy'] = $data['orderBy'] ? $data['orderBy'] : 'sort';
+        $categoryList = model($this->itemCategoryModelNameSpace)->getCategory(0,$data['orderBy'],$data['order'],$data['limit']);
+        $html = '<ul>';
+        foreach ($categoryList as $key => $value) {
+            $html .= "<li>" . $value['id'] . "---" . $value['name'] .  "</li>";
+        }
+        $html .= '</ul>';
+        return $html;
+    }
+
     public function categoryList()
     {
         $data = $this->request->param();
