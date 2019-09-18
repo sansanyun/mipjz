@@ -1,7 +1,7 @@
 <?php
 use JonnyW\PhantomJs\Client;
 use JonnyW\PhantomJs\DependencyInjection\ServiceContainer;
-
+ 
     function getOS() {
         $os_name=PHP_OS;
         if (strpos($os_name,"Linux") !== false) {
