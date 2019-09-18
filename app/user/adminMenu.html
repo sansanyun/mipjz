@@ -1,1 +1,14 @@
-<li class="li has-sub" :class='{"active":$route.params.mod  == "user"}'>    <a class="list-link with-sub"><i class="ion-ios-book-outline"></i> 用户       <div class="list-icon"><i class="triangle-facing-left"></i><i class="triangle-facing-bottom"></i></div>    </a>    <ul class="sub-list">        <li class="sub-item">            <router-link class="sub-link" :to='"/user/user/" + ($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>全部用户</router-link>        </li>        <li class="sub-item">            <router-link class="sub-link" :to='"/user/userGroup/" + ($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>分组管理</router-link>        </li>    </ul></li>
+<li class="li has-sub" :class='{"active":$route.params.mod  == "user"}'>
+    <a class="list-link with-sub"><i class="ion-ios-book-outline"></i> 用户
+       <div class="list-icon"><i class="triangle-facing-left"></i><i class="triangle-facing-bottom"></i></div>
+    </a>
+    <ul class="sub-list">
+        <li class="sub-item">
+            <router-link class="sub-link" :to='"/user/user/" + ($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>全部用户</router-link>
+        </li>
+        <li class="sub-item">
+            <router-link class="sub-link" :to='"/user/userGroup/" + ($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>分组管理</router-link>
+        </li>
+
+    </ul>
+</li>

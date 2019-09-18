@@ -14,7 +14,7 @@ if (!is_file(PUBLIC_PATH . 'install' . DS .'install.lock')) {
         Route::rule('/install','install/Install/index');
         Route::rule('/install/installPost','install/Install/installPost');
         Route::rule('/install/installPostOne','install/Install/installPostOne');
-    } 
+    }
 } else {
     config('admin','admin'); //如果修改系统管理地址，请修改后一个admin即可
     $request = Request::instance();

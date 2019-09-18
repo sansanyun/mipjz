@@ -1,1 +1,13 @@
-<li class="li has-sub" :class='{"active":$route.params.mod == "addons"}'>   <a class="list-link with-sub" ><i class="ion-ios-folder-outline"></i> 插件       <div class="list-icon"><i class="triangle-facing-left"></i><i class="triangle-facing-bottom"></i></div>   </a>   <ul class="sub-list">        <li class="sub-item" v-for='item in sideList'>            <router-link class="sub-link" :to='"/addons/"+item.name+"/"+($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>{{item.title}}</router-link>        </li>        <li class="sub-item">            <router-link class="sub-link" :to='"/addons/addons/"+($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>全部</router-link>        </li>    </ul></li>
+<li class="li has-sub" :class='{"active":$route.params.mod == "addons"}'>
+   <a class="list-link with-sub" ><i class="ion-ios-folder-outline"></i> 插件
+       <div class="list-icon"><i class="triangle-facing-left"></i><i class="triangle-facing-bottom"></i></div>
+   </a>
+   <ul class="sub-list">
+        <li class="sub-item" v-for='item in sideList'>
+            <router-link class="sub-link" :to='"/addons/"+item.name+"/"+($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>{{item.title}}</router-link>
+        </li>
+        <li class="sub-item">
+            <router-link class="sub-link" :to='"/addons/addons/"+($route.params.dataId && ($route.params.dataId != "undefined")  ? $route.params.dataId : "")'>全部</router-link>
+        </li>
+    </ul>
+</li>

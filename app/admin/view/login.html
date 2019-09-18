@@ -1,10 +1,150 @@
-<!DOCTYPE html><html><head>    <meta charset="utf-8">    <meta name="renderer" content="webkit">    <meta http-equiv="X-UA-Compatible" content="IE=edge">    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">    <title>管理员登录</title>    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/css/bootstrap.min.css">    <link rel="stylesheet" type="text/css" href="https://cdn.staticfile.org/iview/2.14.2/styles/iview.css">
-    <style type="text/css">    	body {    		background-color: #eef1f5;    	}    	.mip-box {    		background-color: #fff;    		border-radius: 3px;    	}    	.mip-box-body {    		padding: 15px;    	}	    [v-cloak] {	        display: none;	    }
-    	.ivu-input-group-append {	        padding:0px!important;	    }	    .ivu-input-group-append img {	        height: 34px;	        border-top-right-radius: 3px;	        border-bottom-right-radius: 3px;	        display: block;	    }
-    </style></head><body class="mip-admin">    <div id="app">        <div style="width: 350px;margin: 0 auto!important;padding-top: 100px;">            <div class="mip-box" v-cloak>                <div class="mip-box-body">                    <h1 class="text-center login-title">管理员登录</h1>                        <i-form ref="ruleForm" :model="ruleForm" :rules="rules"  label-position="top">                            <Form-item label="账号" prop="username">                                <i-Input size="large" v-model="ruleForm.username" placeholder="账号"></i-Input>                            </Form-item>                            <Form-item label="密码" prop="password">                                <i-Input size="large" v-model="ruleForm.password" type="password" placeholder="密码"></i-Input>                            </Form-item>                            {if condition='$siteInfo["loginCaptcha"]'}                             <Form-item label="验证码" prop="captcha"  @keyup.enter.native="submitForm('ruleForm')">	                            <div>	                                <i-input class="captcha" v-model="ruleForm.captcha" size="large" placeholder="4位字符">	                                    <template slot="append"><img @click="refreshCaptcha" :src="captchaImg" alt="点击刷新" /></template>	                                </i-input>	                            </div>	                        </Form-item>	                        {/if}	                        <Form-item>	                            <i-Button size="large" type="primary" long @click="submitForm('ruleForm')">登录</i-Button>	                        </Form-item>	                        <p class="text-center">Powered By <a href="https://www.mipjz.com" target="_blank">MIP建站系统</a></p>                        </i-form>                </div>            </div>        </div>    </div></body><script src="{$domainStatic}/{$assets}/common/js/components.js"></script><script src="https://cdn.staticfile.org/iview/2.14.2/iview.min.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript">    var siteGlobal = {        domain: '{$domain}',        rewrite: '{$rewrite}',    }</script><script>    new Vue({        el: '#app',        data: {            captchaImg: '{$domainStatic}/index.php?s=/captcha.html',            ruleForm: {                username: '',                password: '',                captcha: '',            },            show: 'login-reg show',            token: '',            rules: {                username: [                    { required: true, message: '请输入用户名', trigger: 'blur' },                    { min: 2, max: 25, message: '长度在 2 到25 个字符', trigger: 'blur' }                ],                password: [                    { required: true, message: '请输入密码', trigger: 'blur' },                ],                captcha: [                    { required: true, message: '请输入验证码', trigger: 'blur' },                    { min: 4, max: 4, message: '长度为4个字符', trigger: 'blur' }                ],            },        },
-        mounted: function mounted() {			this.getToken();        },        methods: {        	getToken: function() {	            this.$mip.ajax("{$domainStatic}/index.php?s=/User/ApiStatus/token",{	            }).then(res => {	                if (res.code == 1) {	 					this.token = res.data;	                }		            });	    	},            submitForm(formName) {                let _this = this;                let __this = this;                this.$refs[formName].validate((valid) => {                    if (valid) {                        this.$mip.ajax('{$domainStatic}/index.php?s=/user/ApiUser/login', {                            terminal: 'pc',                            username: _this.ruleForm.username,                            password: md5(_this.ruleForm.password),                            captcha: _this.ruleForm.captcha,                			__token__: this.token,                        }).then(res => {                            this.refreshCaptcha();							this.getToken();                            if (res.code == 1) {                                localStorage.setItem('mip_userInfo',JSON.stringify(res.data));                                location.href = '{$domainStatic}/index.php?s=/{$Think.config.admin}/';                            }                        });                    }                });            },            refreshCaptcha: function() {                this.captchaImg = '{$domainStatic}/index.php?s=/captcha.html&t='+(new Date()).getTime();            },        }    })
-  </script>
-</html>
-
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <title>管理员登录</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.staticfile.org/iview/2.14.2/styles/iview.css">
+    <style type="text/css">
+    	body {
+    		background-color: #eef1f5;
+    	}
+    	.mip-box {
+    		background-color: #fff;
+    		border-radius: 3px;
+    	}
+    	.mip-box-body {
+    		padding: 15px;
+    	}
+	    [v-cloak] {
+	        display: none;
+	    }
+    	.ivu-input-group-append {
+	        padding:0px!important;
+	    }
+	    .ivu-input-group-append img {
+	        height: 34px;
+	        border-top-right-radius: 3px;
+	        border-bottom-right-radius: 3px;
+	        display: block;
+	    }
+    </style>
+</head>
+<body class="mip-admin">
+    <div id="app">
+        <div style="width: 350px;margin: 0 auto!important;padding-top: 100px;">
+            <div class="mip-box" v-cloak>
+                <div class="mip-box-body">
+                    <h1 class="text-center login-title">管理员登录</h1>
+                        <i-form ref="ruleForm" :model="ruleForm" :rules="rules"  label-position="top">
+                            <Form-item label="账号" prop="username">
+                                <i-Input size="large" v-model="ruleForm.username" placeholder="账号"></i-Input>
+                            </Form-item>
+                            <Form-item label="密码" prop="password">
+                                <i-Input size="large" v-model="ruleForm.password" type="password" placeholder="密码"></i-Input>
+                            </Form-item>
+                            {if condition='$siteInfo["loginCaptcha"]'}
+                             <Form-item label="验证码" prop="captcha"  @keyup.enter.native="submitForm('ruleForm')">
+	                            <div>
+	                                <i-input class="captcha" v-model="ruleForm.captcha" size="large" placeholder="4位字符">
+	                                    <template slot="append"><img @click="refreshCaptcha" :src="captchaImg" alt="点击刷新" /></template>
+	                                </i-input>
+	                            </div>
+	                        </Form-item>
+	                        {/if}
+	                        <Form-item>
+	                            <i-Button size="large" type="primary" long @click="submitForm('ruleForm')">登录</i-Button>
+	                        </Form-item>
+	                        <p class="text-center">Powered By <a href="https://www.mipjz.com" target="_blank">MIP建站系统</a></p>
+                        </i-form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="{$domainStatic}/{$assets}/common/js/components.js"></script>
+<script src="https://cdn.staticfile.org/iview/2.14.2/iview.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var siteGlobal = {
+        domain: '{$domain}',
+        rewrite: '{$rewrite}',
+    }
+</script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            captchaImg: '{$domainStatic}/index.php?s=/captcha.html',
+            ruleForm: {
+                username: '',
+                password: '',
+                captcha: '',
+            },
+            show: 'login-reg show',
+            token: '',
+            rules: {
+                username: [
+                    { required: true, message: '请输入用户名', trigger: 'blur' },
+                    { min: 2, max: 25, message: '长度在 2 到25 个字符', trigger: 'blur' }
+                ],
+                password: [
+                    { required: true, message: '请输入密码', trigger: 'blur' },
+                ],
+                captcha: [
+                    { required: true, message: '请输入验证码', trigger: 'blur' },
+                    { min: 4, max: 4, message: '长度为4个字符', trigger: 'blur' }
+                ],
+            },
+        },
+
+        mounted: function mounted() {
+			this.getToken();
+        },
+        methods: {
+        	getToken: function() {
+	            this.$mip.ajax("{$domainStatic}/index.php?s=/User/ApiStatus/token",{
+	            }).then(res => {
+	                if (res.code == 1) {
+	 					this.token = res.data;
+	                }	
+	            });
+	    	},
+            submitForm(formName) {
+                let _this = this;
+                let __this = this;
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.$mip.ajax('{$domainStatic}/index.php?s=/user/ApiUser/login', {
+                            terminal: 'pc',
+                            username: _this.ruleForm.username,
+                            password: md5(_this.ruleForm.password),
+                            captcha: _this.ruleForm.captcha,
+                			__token__: this.token,
+                        }).then(res => {
+                            this.refreshCaptcha();
+							this.getToken();
+                            if (res.code == 1) {
+                                localStorage.setItem('mip_userInfo',JSON.stringify(res.data));
+                                location.href = '{$domainStatic}/index.php?s=/{$Think.config.admin}/';
+                            }
+                        });
+                    }
+                });
+            },
+            refreshCaptcha: function() {
+                this.captchaImg = '{$domainStatic}/index.php?s=/captcha.html&t='+(new Date()).getTime();
+            },
+        }
+    })
+
+  </script>
+
+</html>
+
+
+
     
