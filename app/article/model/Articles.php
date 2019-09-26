@@ -202,13 +202,14 @@ class Articles extends Controller
         $limit = isset($tag['limit']) ? $tag['limit'] : 10;
         $where = isset($tag['where']) ? $tag['where'] : null;
         $keywords = isset($tag['keywords']) ? $tag['keywords'] : null;
+        $type = isset($tag['type']) ? $tag['type'] : null;
         $tag['itemType'] = $this->itemType;
         
         if ($listType == 'list') {
             if ((isset($tag['tagNames']) && $tag['tagNames']) || (isset($tag['tagIds']) && $tag['tagIds'])) {
                 return $this->getItemListbyTagIds($cid, $page, $limit, $orderBy, $order, $where,$keywords,$whereArray,$tag['tagNames'],$tag['tagIds'],$tag['itemType']);                
             } else {
-                return $this->getItemList($cid, $page, $limit, $orderBy, $order, $where,$keywords,$whereArray);
+                return $this->getItemList($cid, $page, $limit, $orderBy, $order, $where,$keywords,$whereArray,null,null,$type);
             }
         }
         if ($listType == 'pagination') {
@@ -221,7 +222,7 @@ class Articles extends Controller
         
     }
 
-    public function getItemList($cid = null, $page = 1, $perPage = 10, $orderBy = 'publish_time', $order = 'desc', $where = null,$keywords = null,$whereArray = null,$uuids = null, $publishType = null)
+    public function getItemList($cid = null, $page = 1, $perPage = 10, $orderBy = 'publish_time', $order = 'desc', $where = null,$keywords = null,$whereArray = null,$uuids = null, $publishType = null,$type = null)
     {
         $orderBy = $orderBy ? $orderBy : 'publish_time';
         $order = $order ? $order : 'desc';
@@ -251,21 +252,58 @@ class Articles extends Controller
         if ($publishType == 'all')  {
             $hideWhere = null;
         }
-        
+
         $itemList = [];
-        if ($cid == '' || $cid == null) {
-            $itemList = db($this->item)->where($where)->where($keywordsWhere)->where($hideWhere)->where($uuidsWhere)->where($whereArray)->page($page,$perPage)->order($orderBy,$order)->select();
-        } else {
-            $itemCategoryList = db($this->itemCategory)->where('pid',$cid)->select();
-            if ($itemCategoryList) {
-                foreach ($itemCategoryList as $key => $value) {
-                    $cids[] = $value['id'];
+        if ($type == 'rand') {
+            if ($cid == '' || $cid == null) {
+                $itemFieldList = db($this->item)->field('id')->order($orderBy,$order)->select();
+            } else {
+                $itemCategoryList = model($this->itemCategoryModelNameSpace)->getCategory($cid);
+                if ($itemCategoryList) {
+                    foreach ($itemCategoryList as $key => $value) {
+                        $cids[] = $value['id'];
+                    }
+                }
+                if ($itemCategoryList) {
+                    $itemFieldList = db($this->item)->field('id')->whereOr('cid',$cid)->whereOr('cid','in',$cids)->order($orderBy,$order)->select();
+                } else {
+                    $itemFieldList = db($this->item)->field('id')->where('cid',$cid)->order($orderBy,$order)->select();
                 }
             }
-            if ($itemCategoryList) {
-                $itemList = db($this->item)->where($where)->where($keywordsWhere)->where($hideWhere)->where($uuidsWhere)->where($whereArray)->whereOr('cid',$cid)->whereOr('cid','in',$cids)->page($page,$perPage)->order($orderBy,$order)->select();
+            if ($itemFieldList) {
+                if ($perPage == 1) {
+                    $tempIdArray = $itemFieldList[array_rand($itemFieldList,1)];
+                } else {
+                    if (count($itemFieldList) < $perPage) {
+                        $perPage = count($itemFieldList);
+                    }
+                    $tempArray = array_rand($itemFieldList,$perPage);
+                    if ($tempArray) {
+                        foreach ($tempArray as $key => $val) {
+                            $tempIdArray[] = $itemFieldList[$val];
+                        }
+                    }
+                }
+                foreach($tempIdArray as $k => $v) {
+                    $itemList[] = db($this->item)->where('id',$v['id'])->find();
+                }
+            }
+        } else {
+
+            if ($cid == '' || $cid == null) {
+                $itemList = db($this->item)->where($this->siteWhere)->where($where)->where($keywordsWhere)->where($hideWhere)->where($uuidsWhere)->where($whereArray)->page($page,$perPage)->order($orderBy,$order)->select();
             } else {
-                $itemList = db($this->item)->where($where)->where($keywordsWhere)->where($hideWhere)->where($uuidsWhere)->where($whereArray)->where('cid',$cid)->page($page,$perPage)->order($orderBy,$order)->select();
+                $itemCategoryList = model($this->itemCategoryModelNameSpace)->getCategory($cid);
+                if ($itemCategoryList) {
+                    foreach ($itemCategoryList as $key => $value) {
+                        $cids[] = $value['id'];
+                    }
+                }
+                if ($itemCategoryList) {
+                    $itemList = db($this->item)->where($where)->where($keywordsWhere)->where($hideWhere)->where($uuidsWhere)->where($whereArray)->whereOr('cid',$cid)->whereOr('cid','in',$cids)->where($this->siteWhere)->page($page,$perPage)->order($orderBy,$order)->select();
+                } else {
+                    $itemList = db($this->item)->where($this->siteWhere)->where($where)->where($keywordsWhere)->where($hideWhere)->where($uuidsWhere)->where($whereArray)->where('cid',$cid)->page($page,$perPage)->order($orderBy,$order)->select();
+                }
             }
         }
         if ($itemList) {
