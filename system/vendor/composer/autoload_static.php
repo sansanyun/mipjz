@@ -8,12 +8,12 @@ class ComposerStaticInit47dc77bd3df7b9e15abb6d463d1174ed
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '9b552a3cc426e3287cc811caefa3cf53' => __DIR__ . '/..' . '/topthink/think-helper/src/helper.php',
-        '2cd73290f8e6fac63cdf82efabea125f' => __DIR__ . '/..' . '/5ini99/think-addons/src/common.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '1cfd2761b63b0a29ed23657ea394cb2d' => __DIR__ . '/..' . '/topthink/think-captcha/src/helper.php',
         'd0a4aedde4e22005c366f98712801919' => __DIR__ . '/../..' . '/library/HTMLPurifier.composer.php',
@@ -22,8 +22,6 @@ class ComposerStaticInit47dc77bd3df7b9e15abb6d463d1174ed
     public static $prefixLengthsPsr4 = array (
         't' => 
         array (
-            'think\\worker\\' => 13,
-            'think\\helper\\' => 13,
             'think\\composer\\' => 15,
             'think\\captcha\\' => 14,
             'think\\' => 6,
@@ -32,9 +30,10 @@ class ComposerStaticInit47dc77bd3df7b9e15abb6d463d1174ed
         array (
             'andreskrey\\Readability\\' => 23,
         ),
-        'W' => 
+        'Y' => 
         array (
-            'Workerman\\' => 10,
+            'Yansongda\\Supports\\' => 19,
+            'Yansongda\\Pay\\' => 14,
         ),
         'T' => 
         array (
@@ -42,11 +41,16 @@ class ComposerStaticInit47dc77bd3df7b9e15abb6d463d1174ed
         ),
         'S' => 
         array (
+            'Symfony\\Polyfill\\Php72\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Intl\\Idn\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
+            'Symfony\\Contracts\\EventDispatcher\\' => 34,
             'Symfony\\Component\\Yaml\\' => 23,
+            'Symfony\\Component\\Mime\\' => 23,
+            'Symfony\\Component\\HttpFoundation\\' => 33,
             'Symfony\\Component\\Filesystem\\' => 29,
-            'Symfony\\Component\\DomCrawler\\' => 29,
+            'Symfony\\Component\\EventDispatcher\\' => 34,
             'Symfony\\Component\\DependencyInjection\\' => 38,
             'Symfony\\Component\\Config\\' => 25,
         ),
@@ -63,6 +67,14 @@ class ComposerStaticInit47dc77bd3df7b9e15abb6d463d1174ed
             'Psr\\Container\\' => 14,
             'PhantomInstaller\\Test\\' => 22,
         ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
+        ),
+        'H' => 
+        array (
+            'Hashids\\' => 8,
+        ),
         'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
@@ -72,14 +84,6 @@ class ComposerStaticInit47dc77bd3df7b9e15abb6d463d1174ed
     );
 
     public static $prefixDirsPsr4 = array (
-        'think\\worker\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/topthink/think-worker/src',
-        ),
-        'think\\helper\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/topthink/think-helper/src',
-        ),
         'think\\composer\\' => 
         array (
             0 => __DIR__ . '/..' . '/topthink/think-installer/src',
@@ -90,40 +94,63 @@ class ComposerStaticInit47dc77bd3df7b9e15abb6d463d1174ed
         ),
         'think\\' => 
         array (
-            0 => __DIR__ . '/..' . '/5ini99/think-addons/src',
-            1 => __DIR__ . '/../..' . '/thinkphp/library/think',
+            0 => __DIR__ . '/../..' . '/thinkphp/library/think',
         ),
         'andreskrey\\Readability\\' => 
         array (
             0 => __DIR__ . '/..' . '/andreskrey/readability.php/src',
         ),
-        'Workerman\\' => 
+        'Yansongda\\Supports\\' => 
         array (
-            0 => __DIR__ . '/..' . '/workerman/workerman',
+            0 => __DIR__ . '/..' . '/yansongda/supports/src',
+        ),
+        'Yansongda\\Pay\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yansongda/pay/src',
         ),
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
         ),
+        'Symfony\\Polyfill\\Php72\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
+        ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Polyfill\\Intl\\Idn\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-intl-idn',
         ),
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
+        'Symfony\\Contracts\\EventDispatcher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/event-dispatcher-contracts',
+        ),
         'Symfony\\Component\\Yaml\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
+        ),
+        'Symfony\\Component\\Mime\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/mime',
+        ),
+        'Symfony\\Component\\HttpFoundation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/http-foundation',
         ),
         'Symfony\\Component\\Filesystem\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/filesystem',
         ),
-        'Symfony\\Component\\DomCrawler\\' => 
+        'Symfony\\Component\\EventDispatcher\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/dom-crawler',
+            0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
         ),
         'Symfony\\Component\\DependencyInjection\\' => 
         array (
@@ -161,6 +188,14 @@ class ComposerStaticInit47dc77bd3df7b9e15abb6d463d1174ed
         'PhantomInstaller\\Test\\' => 
         array (
             0 => __DIR__ . '/..' . '/jakoch/phantomjs-installer/tests',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Hashids\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hashids/hashids/src',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (

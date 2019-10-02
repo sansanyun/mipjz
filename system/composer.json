@@ -19,15 +19,13 @@
         "php": ">=5.4.0",
         "topthink/framework": "5.0.*",
         "topthink/think-captcha": "^1.0",
-        "5ini99/think-addons": "dev-master",
         "jaeger/querylist": "V3.2.1",
         "jaeger/querylist-ext-multi": "^1.0",
         "andreskrey/readability.php": "^1.1",
-        "guzzlehttp/guzzle": "^6.3",
-        "symfony/dom-crawler": "^3.3",
         "aferrandini/phpqrcode": "1.0.1",
         "jonnyw/php-phantomjs": "4.*",
-        "topthink/think-worker": "1.0.*"
+        "hashids/hashids": "^3.0",
+        "yansongda/pay": "^2.4"
     },
     "extra": {
         "think-path": "thinkphp"

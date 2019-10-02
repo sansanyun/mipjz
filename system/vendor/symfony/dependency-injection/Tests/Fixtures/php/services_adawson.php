@@ -17,12 +17,12 @@ use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 class ProjectServiceContainer extends Container
 {
     private $parameters;
-    private $targetDirs = array();
+    private $targetDirs = [];
 
     public function __construct()
     {
-        $this->services = array();
-        $this->normalizedIds = array(
+        $this->services = [];
+        $this->normalizedIds = [
             'app\\bus' => 'App\\Bus',
             'app\\db' => 'App\\Db',
             'app\\handler1' => 'App\\Handler1',
@@ -30,8 +30,8 @@ class ProjectServiceContainer extends Container
             'app\\processor' => 'App\\Processor',
             'app\\registry' => 'App\\Registry',
             'app\\schema' => 'App\\Schema',
-        );
-        $this->methodMap = array(
+        ];
+        $this->methodMap = [
             'App\\Bus' => 'getBusService',
             'App\\Db' => 'getDbService',
             'App\\Handler1' => 'getHandler1Service',
@@ -39,21 +39,21 @@ class ProjectServiceContainer extends Container
             'App\\Processor' => 'getProcessorService',
             'App\\Registry' => 'getRegistryService',
             'App\\Schema' => 'getSchemaService',
-        );
-        $this->privates = array(
+        ];
+        $this->privates = [
             'App\\Handler1' => true,
             'App\\Handler2' => true,
             'App\\Processor' => true,
             'App\\Registry' => true,
             'App\\Schema' => true,
-        );
+        ];
 
-        $this->aliases = array();
+        $this->aliases = [];
     }
 
     public function getRemovedIds()
     {
-        return array(
+        return [
             'App\\Handler1' => true,
             'App\\Handler2' => true,
             'App\\Processor' => true,
@@ -61,7 +61,7 @@ class ProjectServiceContainer extends Container
             'App\\Schema' => true,
             'Psr\\Container\\ContainerInterface' => true,
             'Symfony\\Component\\DependencyInjection\\ContainerInterface' => true,
-        );
+        ];
     }
 
     public function compile()
@@ -88,10 +88,10 @@ class ProjectServiceContainer extends Container
      */
     protected function getBusService()
     {
-        $this->services['App\Bus'] = $instance = new \App\Bus(${($_ = isset($this->services['App\Db']) ? $this->services['App\Db'] : $this->getDbService()) && false ?: '_'});
+        $this->services['App\\Bus'] = $instance = new \App\Bus(${($_ = isset($this->services['App\\Db']) ? $this->services['App\\Db'] : $this->getDbService()) && false ?: '_'});
 
-        $instance->handler1 = ${($_ = isset($this->services['App\Handler1']) ? $this->services['App\Handler1'] : $this->getHandler1Service()) && false ?: '_'};
-        $instance->handler2 = ${($_ = isset($this->services['App\Handler2']) ? $this->services['App\Handler2'] : $this->getHandler2Service()) && false ?: '_'};
+        $instance->handler1 = ${($_ = isset($this->services['App\\Handler1']) ? $this->services['App\\Handler1'] : $this->getHandler1Service()) && false ?: '_'};
+        $instance->handler2 = ${($_ = isset($this->services['App\\Handler2']) ? $this->services['App\\Handler2'] : $this->getHandler2Service()) && false ?: '_'};
 
         return $instance;
     }
@@ -103,9 +103,9 @@ class ProjectServiceContainer extends Container
      */
     protected function getDbService()
     {
-        $this->services['App\Db'] = $instance = new \App\Db();
+        $this->services['App\\Db'] = $instance = new \App\Db();
 
-        $instance->schema = ${($_ = isset($this->services['App\Schema']) ? $this->services['App\Schema'] : $this->getSchemaService()) && false ?: '_'};
+        $instance->schema = ${($_ = isset($this->services['App\\Schema']) ? $this->services['App\\Schema'] : $this->getSchemaService()) && false ?: '_'};
 
         return $instance;
     }
@@ -117,13 +117,13 @@ class ProjectServiceContainer extends Container
      */
     protected function getHandler1Service()
     {
-        $a = ${($_ = isset($this->services['App\Processor']) ? $this->services['App\Processor'] : $this->getProcessorService()) && false ?: '_'};
+        $a = ${($_ = isset($this->services['App\\Processor']) ? $this->services['App\\Processor'] : $this->getProcessorService()) && false ?: '_'};
 
-        if (isset($this->services['App\Handler1'])) {
-            return $this->services['App\Handler1'];
+        if (isset($this->services['App\\Handler1'])) {
+            return $this->services['App\\Handler1'];
         }
 
-        return $this->services['App\Handler1'] = new \App\Handler1(${($_ = isset($this->services['App\Db']) ? $this->services['App\Db'] : $this->getDbService()) && false ?: '_'}, ${($_ = isset($this->services['App\Schema']) ? $this->services['App\Schema'] : $this->getSchemaService()) && false ?: '_'}, $a);
+        return $this->services['App\\Handler1'] = new \App\Handler1(${($_ = isset($this->services['App\\Db']) ? $this->services['App\\Db'] : $this->getDbService()) && false ?: '_'}, ${($_ = isset($this->services['App\\Schema']) ? $this->services['App\\Schema'] : $this->getSchemaService()) && false ?: '_'}, $a);
     }
 
     /**
@@ -133,13 +133,13 @@ class ProjectServiceContainer extends Container
      */
     protected function getHandler2Service()
     {
-        $a = ${($_ = isset($this->services['App\Processor']) ? $this->services['App\Processor'] : $this->getProcessorService()) && false ?: '_'};
+        $a = ${($_ = isset($this->services['App\\Processor']) ? $this->services['App\\Processor'] : $this->getProcessorService()) && false ?: '_'};
 
-        if (isset($this->services['App\Handler2'])) {
-            return $this->services['App\Handler2'];
+        if (isset($this->services['App\\Handler2'])) {
+            return $this->services['App\\Handler2'];
         }
 
-        return $this->services['App\Handler2'] = new \App\Handler2(${($_ = isset($this->services['App\Db']) ? $this->services['App\Db'] : $this->getDbService()) && false ?: '_'}, ${($_ = isset($this->services['App\Schema']) ? $this->services['App\Schema'] : $this->getSchemaService()) && false ?: '_'}, $a);
+        return $this->services['App\\Handler2'] = new \App\Handler2(${($_ = isset($this->services['App\\Db']) ? $this->services['App\\Db'] : $this->getDbService()) && false ?: '_'}, ${($_ = isset($this->services['App\\Schema']) ? $this->services['App\\Schema'] : $this->getSchemaService()) && false ?: '_'}, $a);
     }
 
     /**
@@ -149,13 +149,13 @@ class ProjectServiceContainer extends Container
      */
     protected function getProcessorService()
     {
-        $a = ${($_ = isset($this->services['App\Registry']) ? $this->services['App\Registry'] : $this->getRegistryService()) && false ?: '_'};
+        $a = ${($_ = isset($this->services['App\\Registry']) ? $this->services['App\\Registry'] : $this->getRegistryService()) && false ?: '_'};
 
-        if (isset($this->services['App\Processor'])) {
-            return $this->services['App\Processor'];
+        if (isset($this->services['App\\Processor'])) {
+            return $this->services['App\\Processor'];
         }
 
-        return $this->services['App\Processor'] = new \App\Processor($a, ${($_ = isset($this->services['App\Db']) ? $this->services['App\Db'] : $this->getDbService()) && false ?: '_'});
+        return $this->services['App\\Processor'] = new \App\Processor($a, ${($_ = isset($this->services['App\\Db']) ? $this->services['App\\Db'] : $this->getDbService()) && false ?: '_'});
     }
 
     /**
@@ -165,9 +165,9 @@ class ProjectServiceContainer extends Container
      */
     protected function getRegistryService()
     {
-        $this->services['App\Registry'] = $instance = new \App\Registry();
+        $this->services['App\\Registry'] = $instance = new \App\Registry();
 
-        $instance->processor = array(0 => ${($_ = isset($this->services['App\Db']) ? $this->services['App\Db'] : $this->getDbService()) && false ?: '_'}, 1 => ${($_ = isset($this->services['App\Bus']) ? $this->services['App\Bus'] : $this->getBusService()) && false ?: '_'});
+        $instance->processor = [0 => ${($_ = isset($this->services['App\\Db']) ? $this->services['App\\Db'] : $this->getDbService()) && false ?: '_'}, 1 => ${($_ = isset($this->services['App\\Bus']) ? $this->services['App\\Bus'] : $this->getBusService()) && false ?: '_'}];
 
         return $instance;
     }
@@ -179,12 +179,12 @@ class ProjectServiceContainer extends Container
      */
     protected function getSchemaService()
     {
-        $a = ${($_ = isset($this->services['App\Db']) ? $this->services['App\Db'] : $this->getDbService()) && false ?: '_'};
+        $a = ${($_ = isset($this->services['App\\Db']) ? $this->services['App\\Db'] : $this->getDbService()) && false ?: '_'};
 
-        if (isset($this->services['App\Schema'])) {
-            return $this->services['App\Schema'];
+        if (isset($this->services['App\\Schema'])) {
+            return $this->services['App\\Schema'];
         }
 
-        return $this->services['App\Schema'] = new \App\Schema($a);
+        return $this->services['App\\Schema'] = new \App\Schema($a);
     }
 }

@@ -1905,7 +1905,6 @@ class Query
         if (strpos($tableName, ')')) {
             return [];
         }
-
         list($guid) = explode(' ', $tableName);
         $db         = $this->getConfig('database');
         if (!isset(self::$info[$db . '.' . $guid])) {
@@ -1949,6 +1948,7 @@ class Query
      */
     public function getPk($options = '')
     {
+        return '';
         if (!empty($this->pk)) {
             $pk = $this->pk;
         } else {
@@ -1972,6 +1972,7 @@ class Query
     // 获取当前数据表绑定信息
     public function getFieldsBind($table = '')
     {
+        return [];
         $types = $this->getFieldsType($table);
         $bind  = [];
         if ($types) {

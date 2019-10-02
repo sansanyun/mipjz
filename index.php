@@ -13,6 +13,8 @@ define('BAIDU',false);
 
 define('APP_PATH', __DIR__ . '/app/');
 
+define('ADDONS_PATH', __DIR__ . '/addons/');
+
 define('SITE_PATH', __DIR__ . '/');
 
 defined('MIP_ROOT') or define('MIP_ROOT', __DIR__ . '/');

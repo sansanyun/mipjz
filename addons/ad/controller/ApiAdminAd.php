@@ -69,10 +69,10 @@ class ApiAdminAd extends AdminBase
         }
         
         db('Ad')->where('id',$id)->update(array(
-                'title' => $title,
-                'name' => $name,
-                'content' => htmlspecialchars($content),
-                'info' => $info,
+            'title' => $title,
+            'name' => $name,
+            'content' => htmlspecialchars($content),
+            'info' => $info,
         ));
         return jsonSuccess('成功');
     }
@@ -99,10 +99,10 @@ class ApiAdminAd extends AdminBase
         $page = input('post.page');
         $limit = input('post.limit');
         $limit ? $limit : 10;
-        if(!$orderBy) {
+        if (!$orderBy) {
            $orderBy = 'add_time';
         }
-        if(!$order){
+        if (!$order){
             $order = 'desc';
         }
         

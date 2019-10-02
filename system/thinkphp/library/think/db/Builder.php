@@ -110,11 +110,7 @@ abstract class Builder
                 // 对象数据写入
                 $val = $val->__toString();
             }
-            if (false === strpos($key, '.') && !in_array($key, $fields, true)) {
-                if ($options['strict']) {
-                    throw new Exception('fields not exists:[' . $key . ']');
-                }
-            } elseif (is_null($val)) {
+            if (is_null($val)) {
                 $result[$item] = 'NULL';
             } elseif (is_array($val) && !empty($val)) {
                 switch (strtolower($val[0])) {

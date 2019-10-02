@@ -391,8 +391,8 @@ class Template
             }
         }
         // 预先加载的标签库 无需在每个模板中使用taglib标签加载 但必须使用标签库XML前缀
-        if ($this->config['taglib_pre_load']) {
-            $tagLibs = explode(',', $this->config['taglib_pre_load']);
+        if (config('template')['taglib_pre_load']) {
+            $tagLibs = explode(',', config('template')['taglib_pre_load']);
             foreach ($tagLibs as $tag) {
                 $this->parseTagLib($tag, $content);
             }

@@ -195,7 +195,11 @@ if (!function_exists('db')) {
     function db($name = '', $config = [], $force = false)
     {
     	if (config('dataId')) {
-            $dbconfig = Db::connect($config, $force)->name('zhanqun')->where('id',config('dataId'))->find();
+    	       if (config('siteRes')) {
+                $dbconfig = Db::connect($config, $force)->name('zhanqun')->where('id',config('dataId'))->find();
+    	       } else {
+                $dbconfig = config('zqInfo')[config('dataId')];
+    	       }
             if ($dbconfig) {
                 $config = [
                     'type'        => 'mysql',
@@ -211,6 +215,30 @@ if (!function_exists('db')) {
                 ];
             }
     	}
+    if (config('sitesId')) {
+    	$subSiteInfo = config('subSiteInfo');
+    	if (!$subSiteInfo) {
+        	$subSiteInfo = Db::name('Sites')->where('id',config('sitesId'))->find();
+    	} else {
+    		if ($subSiteInfo['id'] != config('sitesId')) {
+        		$subSiteInfo = Db::name('Sites')->where('id',config('sitesId'))->find();
+    		}
+    	}
+        if ($subSiteInfo) {
+            $config = [
+                'type'        => 'mysql',
+                'dsn'         => '',
+                'hostname'    => config('database.hostname'),
+                'database'    => $subSiteInfo['database'],
+                'username'    => config('database.username'),
+                'password'    => config('database.password'),
+                'hostport'    => config('database.hostport'),
+                'params'      => [],
+                'charset'     => 'utf8',
+                'prefix'      => config('database.prefix'),
+            ];
+        }
+    }
         return Db::connect($config, $force)->name($name);
     }
 }

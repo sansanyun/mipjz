@@ -175,9 +175,33 @@ class App
             if (defined('APP_NAMESPACE')) {
                 self::$namespace = APP_NAMESPACE;
             }
-
             Loader::addNamespace(self::$namespace, APP_PATH);
-
+            if (defined('ADDONS_PATH')) {
+                Loader::addNamespace('addons', ADDONS_PATH);
+            }
+            if (is_file(ROOT_PATH . 'ssycms')) {
+                $typeSystem = file_get_contents(ROOT_PATH . 'ssycms');
+                if ($typeSystem == 'clouds') {
+                    if (defined('CLOUDS_PATH')) {
+                        Loader::addNamespace('clouds', CLOUDS_PATH);
+                    }
+                }
+                if ($typeSystem == 'mod') {
+                    if (defined('MOD_PATH')) {
+                        Loader::addNamespace('mod', MOD_PATH);
+                    }
+                }
+                if ($typeSystem == 'zhanqun') {
+                    if (defined('ZHANQUN_PATH')) {
+                        Loader::addNamespace('zhanqun', ZHANQUN_PATH);
+                    }
+                }
+            }
+            
+            if (defined('ZQADDONS_PATH')) {
+                Loader::addNamespace('zqAddons', ZQADDONS_PATH);
+            }
+            
             // 初始化应用
             $config       = self::init();
             self::$suffix = $config['class_suffix'];

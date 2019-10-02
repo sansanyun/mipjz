@@ -1,8 +1,8 @@
 <?php
 namespace addons\ad;
 
-use think\Addons;
-class Ad extends Addons
+use think\Controller;
+class Ad extends Controller
 {
     public $info = [
         'name' => 'ad',
@@ -22,27 +22,6 @@ class Ad extends Addons
     public function uninstall()
     {
         return true;
-    }
-    
-    public function adHook($param)
-    {
-        $addonsName = 'ad'; //配置当前插件名称
-        $itemInfo = db('Addons')->where('name',$addonsName)->find();
-        if (!$itemInfo || $itemInfo['status'] != 1) {
-            return false;
-        }
-        
-        if (!$param) {
-            return false;
-        }
-        $adList = db('ad')->where('name',$param)->find();
-        if ($adList) {
-            $adList['content'] = htmlspecialchars_decode($adList['content']);
-        } else {
-            return false;
-        }
-        $this->assign('itemInfo',$adList);
-        return $this->fetch($addonsName);
     }
     
     

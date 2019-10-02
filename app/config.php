@@ -9,7 +9,15 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
-
+$app_debug = false;
+$exception_tmpl = ROOT_PATH . 'template' . DS . '404.html';
+if (is_file(ROOT_PATH . 'runtime' . DS . 'debug.txt')) {
+    $debugStatus = file_get_contents(ROOT_PATH . 'runtime' . DS . 'debug.txt');
+    if ($debugStatus) {
+        $app_debug = true;
+        $exception_tmpl = THINK_PATH . 'tpl' . DS . 'think_exception.tpl';
+    }
+}
 return [
     // +----------------------------------------------------------------------
     // | 应用设置
@@ -18,7 +26,7 @@ return [
     // 应用命名空间
     'app_namespace'          => 'app',
     // 应用调试模式
-    'app_debug'              => false,
+    'app_debug'              => $app_debug,
     // 应用Trace
     'app_trace'              => false,
     // 应用模式状态
@@ -151,7 +159,7 @@ return [
     // +----------------------------------------------------------------------
 
     // 异常页面的模板文件
-      'exception_tmpl'         =>  APP_PATH . 'common' . DS . 'tpl' . DS . '404.html',
+      'exception_tmpl'         => $exception_tmpl,
     
 //'exception_tmpl'         => THINK_PATH . 'tpl' . DS . 'think_exception.tpl',
 

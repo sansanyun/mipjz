@@ -6,5 +6,4 @@ use think\DB;
 use think\Request;
 
 
-    
-Route::rule(Config::get('admin') . '/ApiAdminLink/:action' ,'\\think\\addons\\Route@execute/friendlink/ApiAdminLink/:action');
+Route::rule(Config::get('admin') . '/ApiAdminLink/:action' ,'addons\\friendlink\\controller\\ApiAdminLink@:action');
