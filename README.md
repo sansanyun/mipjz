@@ -5,7 +5,6 @@ MIP建站系统原名(MIPCMS内容管理系统:软件著作权登记号：2018SR
 * 官方地址：www.mipjz.com  
 * 交流QQ群：828045755
 * 开源地址GitHub：https://github.com/sansanyun/mipcms5
-* 开源地址coding：https://coding.net/u/sansanyun/p/mipjz/git
 
 #### 特点：免费、开源、支持商用
 MIP建站系统是一套开源系统，在保留系统自带的MIP建站系统版权标识的情况下，你可以免费、商业的使用MIP建站系统。
