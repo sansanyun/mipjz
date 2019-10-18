@@ -42,7 +42,7 @@
                     </div>
                 </section>
                 <section class="mip-box-body mipcms-detail-body">
-                	{:hook('adHook','detailContentTop')}
+					{mipjz:ad name='detailContentTop'/}
                     {$itemInfo['mipContent']}
                     {if condition="$mipInfo['articlePages']"}
                     <div class="mip-page-pagination text-center">
@@ -51,7 +51,7 @@
                         </ul>
                     </div>
                     {/if}
-                	{:hook('adHook','detailContentBottom')}
+                	{mipjz:ad name='detailContentBottom'/}
                     <p>猜你喜欢</p>
                     <div class="mipui-widget-media-body mipui-category-list-001">
                         {mipcms:article value="v" keywords='$itemInfo["tagsListString"]' notUuids="$itemInfo['uuid']" limit='5'}
@@ -80,7 +80,7 @@
             
         </main>
         <aside class="col-lg-4 hidden-xs">
-            {:hook('adHook','detailSideA')}
+            {mipjz:ad name='detailSideA'/}
             <section class="mip-box mip-box-default">
                 <section class="mip-box-heading">
                     <h3>最新{$mipInfo['articleModelName']}</h3>
@@ -96,7 +96,7 @@
                     </ul>
                 </section>
             </section>
-            {:hook('adHook','detailSideB')}
+            {mipjz:ad name='detailSideB'/}
             {include file='block/tags-new'}
         </aside>
 
