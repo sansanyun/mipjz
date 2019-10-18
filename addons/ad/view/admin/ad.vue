@@ -28,10 +28,10 @@
                         <li class="col-md-2">
                             <span>添加时间</span>
                         </li>
-                        <li class="col-md-2">
+                        <li class="col-md-1">
                             <span>备注说明</span>
                         </li>
-                        <li class="col-md-2">
+                        <li class="col-md-3">
                             <span>调用代码</span>
                         </li>
                         <li class="col-md-2">
@@ -52,11 +52,11 @@
                             <li class="col-md-2">
                                 <span>{{item.add_time | dateTime}}</span>
                             </li>
-                            <li class="col-md-2 over-h-e">
+                            <li class="col-md-1 over-h-e">
                                 <span>{{item.info}}</span>
                             </li>
-                            <li class="col-md-2">
-                                <span>{{"{:"}}{{"hook('adHook','"}}{{item.name}}{{"')}"}}</span>
+                            <li class="col-md-3">
+                                <span>{<span>mipjz:ad</span> <span>name='</span>{{item.name}}<span>' /}</span></span>
                             </li>
                             <li class="col-md-2">
                                 <i-button type="error" size="small" @click='itemDel(item)'>删除</i-button>

@@ -280,10 +280,10 @@ class ApiAdminAddons extends AdminBase
         if ($dirs) {
             foreach ($dirs as $val) {
                 if (!isset($addons[$val])) {
-//                  try {
+                    try {
                         $class = 'addons\\' . $val .'\\' . ucfirst($val);
                         if (!class_exists($class)) {
-//                          continue;
+                            continue;
                         }
                         $obj = new $class();
                         $addons[$val] = $obj->info;
@@ -291,8 +291,8 @@ class ApiAdminAddons extends AdminBase
                             $addons[$val]['uninstall'] = 1;
                             unset($addons[$val]['status']);
                         }
-//                  } catch (\Exception $e) {
-//                  }
+                    } catch (\Exception $e) {
+                    }
                     $noAddons[] = $addons[$val];
                 }
                 $tempAddons[] = $addons[$val];

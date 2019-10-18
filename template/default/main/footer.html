@@ -1,6 +1,20 @@
 <footer class="mipui-footer">
     <div class="container">
-        {:hook("friendlinkHook")}
+        <!--友情链接开始-->
+		{mipjz:friendlink value='friendlink' /}
+		{if condition='$friendlink'}
+    	<div class="friend-link hidden-xs">
+	    	<ul>
+	    		<li> 友情链接：</li>
+		   		{volist name='friendlink' id='v'}
+		  		<li>
+		            <a href="{$v.url}" title="{$v.name}" target="_blank">{$v.name}</a>
+		        </li>
+		        {/volist}
+	   		</ul>
+		</div>
+        {/if}
+    	<!--友情链接结束-->
         <p class="text-center mip-footer">&copy;<?php echo date('Y'); ?> <a data-type="mip" href="{$domain}" data-title="{$mipInfo['siteName']}">{$mipInfo['siteName']}</a> {$mipInfo['icp']}<a href="{$domain}/sitemap.xml">网站地图</a> <br class="visible-xs" /> Powered By <a data-type="mip" data-title='MIPJZ'  href="https://www.mipjz.com" target="_blank">MIPJZ</a>{$mipInfo['statistical']} </p>
     </div>
 </footer>

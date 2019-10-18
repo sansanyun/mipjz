@@ -1,8 +1,8 @@
 <?php
 namespace addons\ad;
 
-use think\Controller;
-class Ad extends Controller
+use think\Addons;
+class Ad extends Addons
 {
     public $info = [
         'name' => 'ad',
@@ -23,6 +23,5 @@ class Ad extends Controller
     {
         return true;
     }
-    
     
 }

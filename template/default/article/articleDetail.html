@@ -60,13 +60,13 @@
                     </div>
                     <div class="mip-box-footer item-up-down-page ">
                         <ul class="clearfix list-unstyled">
-                            {mipcms:page value='val' limit='1' itemId='$itemInfo["id"]' type='detail' itemType='upPage'}
+                            {mipcms:page value='val' limit='1' cid='$itemInfo["categoryInfo"]["id"]' itemId='$itemInfo["id"]' type='detail' itemType='upPage'}
                             <div class="mipmb-page-item item-up-page">
                                 <p>上一篇</p>
                                 <a href="{$val.url}">{$val.title}</a>
                             </div>
                             {/mipcms:page}
-                            {mipcms:page value='val' limit='1' itemId='$itemInfo["id"]' type='detail' itemType='downPage'}
+                            {mipcms:page value='val' limit='1'  cid='$itemInfo["categoryInfo"]["id"]' itemId='$itemInfo["id"]' type='detail' itemType='downPage'}
                             <div class="mipmb-page-item item-down-page ">
                                 <p>下一篇</p>
                                 <a href="{$val.url}">{$val.title}</a>

@@ -528,16 +528,21 @@ class Articles extends Controller
         $page = isset($tag['page']) ? $tag['page'] : 1;
         $type = isset($tag['type']) ? $tag['type'] : 'detail';
         $itemType = isset($tag['itemType']) ? $tag['itemType'] : '';
-        
+        $cid = isset($tag['cid']) ? $tag['cid'] : '';
+        if ($cid) {
+        	$whereCid['cid'] = $cid;
+        } else {
+        	$whereCid = null;
+        }
         if (!$itemId) {
             return false;
         }
         if ($type == 'detail') {
             if ($itemType == 'upPage') {
-                $itemList = db($this->item)->where('id','<',$itemId)->limit($limit)->order('id','DESC')->select();
+                $itemList = db($this->item)->where($whereCid)->where('id','<',$itemId)->limit($limit)->order('id','DESC')->select();
             }
             if ($itemType == 'downPage') {
-                $itemList = db($this->item)->where('id','>',$itemId)->limit($limit)->order('id','ASC')->select();
+                $itemList = db($this->item)->where($whereCid)->where('id','>',$itemId)->limit($limit)->order('id','ASC')->select();
             }
             if ($itemList) {
                 foreach ($itemList as $k => $v) {

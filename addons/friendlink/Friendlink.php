@@ -9,7 +9,7 @@ class Friendlink extends Addons
     public $info = [
         'name' => 'friendlink',
         'title' => '友情链接',
-        'description' => '模板调用代码 {:hook("friendlinkHook")}',
+        'description' => '模板调用代码',
         'status' => 0,
         'author' => '团长',
         'version' => '1.0.1',

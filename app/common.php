@@ -677,6 +677,7 @@ function format_url($srcurl, $baseurl) {
     function gbkToUTF8($html) {
         $arr = array( "UTF-8", "ASCII", "GBK", "GB2312", "gb2312","BIG5", "JIS", "eucjp-win", "sjis-win", "EUC-JP" );
         $encode  = mb_detect_encoding( $html, $arr );    
+        $encode = $encode ? $encode : 'gb2312';
         $html = mb_convert_encoding(trim($html), "UTF-8", $encode);
         $html = str_replace('charset=GB2312','charset=UTF-8',$html);
         $html = str_replace('charset="GB2312"','charset="UTF-8"',$html);
@@ -694,7 +695,30 @@ function format_url($srcurl, $baseurl) {
     }
     
     
-function getImage($url,$save_dir,$filename = '',$type=0) {
+    function getImgData($url,$type)
+    {
+        if ($type) {
+            $ch = curl_init();  
+            $timeout = 30;
+            curl_setopt($ch, CURLOPT_URL, $url);  
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt($ch, CURLOPT_ENCODING,'gzip');
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);  
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+            $content = curl_exec($ch);  
+            curl_close($ch);  
+        } else {  
+            ob_start();  
+            readfile($url);  
+            $content = ob_get_contents();  
+            ob_end_clean();
+        }
+        return $content;
+    }
+    
+function getImage($url,$save_dir,$filename = '',$type = 0) {
     if (!$url) {
          return false;
     }
@@ -714,11 +738,11 @@ function getImage($url,$save_dir,$filename = '',$type=0) {
     }
     if ($type) {  
         $ch = curl_init();  
-        $timeout = 30;  
+        $timeout = 30;
         curl_setopt($ch, CURLOPT_URL, $url);  
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  
-        curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V6);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_ENCODING,'gzip');
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);  
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -751,26 +775,71 @@ function getImage($url,$save_dir,$filename = '',$type=0) {
             closedir($templateFile);
         }
     }
-    
-    foreach (fetch_dir(ROOT_PATH . 'addons' . DS) as $key => $dir) {
-        if (is_file($dir . DS . 'function.php')) {
-            require $dir . DS . 'function.php';
+    if (is_file(ROOT_PATH . 'ssycms')) {
+        $typeSystem = file_get_contents(ROOT_PATH . 'ssycms');
+        if ($typeSystem == 'clouds') {
+            if (is_dir(ROOT_PATH . 'clouds' . DS)) {
+                foreach (fetch_dir(ROOT_PATH . 'clouds' . DS) as $key => $dir) {
+                    if (is_file($dir . DS . 'function.php')) {
+                        require $dir . DS . 'function.php';
+                    }
+                }
+            }
+        }
+        if ($typeSystem == 'mod') {
+            if (is_dir(ROOT_PATH . 'mod' . DS)) {
+                foreach (fetch_dir(ROOT_PATH . 'mod' . DS) as $key => $dir) {
+                    if (is_file($dir . DS . 'function.php')) {
+                        require $dir . DS . 'function.php';
+                    }
+                }
+            }
+        }
+        if ($typeSystem == 'zhanqun') {
+            if (is_dir(ROOT_PATH . 'zhanqun' . DS)) {
+                foreach (fetch_dir(ROOT_PATH . 'zhanqun' . DS) as $key => $dir) {
+                    if (is_file($dir . DS . 'function.php')) {
+                        require $dir . DS . 'function.php';
+                    }
+                }
+            }
         }
     }
+    
     foreach (fetch_dir(ROOT_PATH . 'app' . DS) as $key => $dir) {
         if (is_file($dir . DS . 'function.php')) {
             require $dir . DS . 'function.php';
         }
     }
-     
+    if (is_dir(ROOT_PATH . 'zqAddons' . DS)) {
+        foreach (fetch_dir(ROOT_PATH . 'zqAddons' . DS) as $key => $dir) {
+            if (is_file($dir . DS . 'function.php')) {
+                require $dir . DS . 'function.php';
+            }
+        }
+    }
+    
+    if (is_dir(ROOT_PATH . 'addons' . DS)) {
+        foreach (fetch_dir(ROOT_PATH . 'addons' . DS) as $key => $dir) {
+            if (is_file($dir . DS . 'function.php')) {
+                require $dir . DS . 'function.php';
+            }
+        }
+    }
     
     function getPinyin($name) {
         if (!$name) {
            return false;
         }
-        $Pinyin = new ChinesePinyin();
-        $result = $Pinyin->TransformWithoutTone($name);
-        return $result;
+        if (preg_match('/^[a-zA-Z0-9]+$/',$name)) {
+            return $name;
+        }
+        if (preg_match('/^[\x7f-\xff]+$/', $name)) {
+            $Pinyin = new ChinesePinyin();
+            $result = $Pinyin->TransformWithoutTone($name);
+            return $result;
+        }
+        return '';
     }
 
 	function toHex($N) {
