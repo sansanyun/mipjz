@@ -38,7 +38,7 @@ class TagDetail extends Base
         }
         $itemInfo = model($this->itemModelNameSpace)->getItemInfo($itemInfo['id']);
         if (!$itemInfo) {
-            return $this->error('访问的内容不存在','');
+          	throw new \think\exception\HttpException(404, '访问的内容不存在');
         }
         //当前所属分类别名
         $this->assign('categoryUrlName',$itemInfo['categoryInfo']['url_name']);

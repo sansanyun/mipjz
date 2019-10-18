@@ -40,7 +40,7 @@ class Article extends Base
         if ($id) {
             $categoryInfo = model($this->itemCategoryModelNameSpace)->getCategoryInfo($id);
             if (!$categoryInfo) {
-                $this->error('分类不存在','');
+             	throw new \think\exception\HttpException(404, '访问的内容不存在');
             }
             $currentCid = $categoryInfo['id'];
         } else {

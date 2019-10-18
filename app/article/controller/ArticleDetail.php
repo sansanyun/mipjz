@@ -31,12 +31,12 @@ class ArticleDetail extends Base
             if ($this->siteInfo['diyUrlStatus']) {
                 $itemInfo = db($this->item)->where('url_name',$id)->find();
                 if (!$itemInfo) {
-                    return $this->error('访问的内容不存在','');
+                    throw new \think\exception\HttpException(404, '访问的内容不存在');
                 }
             }
         }
         if (!$itemInfo) {
-            return $this->error('访问的内容不存在','');
+       		throw new \think\exception\HttpException(404, '访问的内容不存在');
         }
         $itemInfo = model($this->itemModelNameSpace)->getItemInfo($itemInfo['id']);
         //当前所属分类别名
