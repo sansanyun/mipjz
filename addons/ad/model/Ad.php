@@ -9,7 +9,9 @@ class Ad extends Controller
     {
         $tag = json_decode($tag,true);
         $name = isset($tag['name']) ? $tag['name'] : '';
-        $itemInfo = db('Ad')->where('name',$name)->find();
+        try {
+        	$itemInfo = db('Ad')->where('name',$name)->find();
+        } catch(\Exception $e) {}
         return htmlspecialchars_decode($itemInfo['content']);
     }
 

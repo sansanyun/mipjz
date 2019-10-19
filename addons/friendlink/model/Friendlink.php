@@ -53,11 +53,13 @@ class Friendlink extends Controller
         } else {
             $typeWhere['type']  = ['=','notIndex'];
         }
-        $itemList = db('friendlink')->where($typeWhere)->whereOr('type','all')->where($where)->where($whereArray)->order($orderBy,$order)->select();
-        if ($itemList) {
-        } else {
-            $itemList = [];
-        }
+        try {
+	        $itemList = db('friendlink')->where($typeWhere)->whereOr('type','all')->where($where)->where($whereArray)->order($orderBy,$order)->select();
+	        if ($itemList) {
+	        } else {
+	            $itemList = [];
+	        }
+        } catch(\Exception $e) {}
         return $itemList;
     }
 
