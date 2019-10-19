@@ -10,7 +10,7 @@
 // +----------------------------------------------------------------------
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 $app_debug = false;
-$exception_tmpl = ROOT_PATH . 'template' . DS . '404.html';
+$exception_tmpl = APP_PATH . 'common' . DS . 'tpl' . DS . '404.html';
 if (is_file(ROOT_PATH . 'runtime' . DS . 'debug.txt')) {
     $debugStatus = file_get_contents(ROOT_PATH . 'runtime' . DS . 'debug.txt');
     if ($debugStatus) {
