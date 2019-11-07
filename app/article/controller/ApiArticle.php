@@ -18,7 +18,8 @@ class ApiArticle extends Base
     {
         $data = $this->request->param();
         $data['orderBy'] = $data['orderBy'] ? $data['orderBy'] : 'sort';
-        $categoryList = model($this->itemCategoryModelNameSpace)->getCategory(0,$data['orderBy'],$data['order'],$data['limit']);
+        $data['pid'] = $data['cid'] ? $data['pid'] : '0';
+        $categoryList = model($this->itemCategoryModelNameSpace)->getCategory($data['pid'],$data['orderBy'],$data['order'],$data['limit']);
         $html = '<ul>';
         foreach ($categoryList as $key => $value) {
             $html .= "<li>" . $value['id'] . "---" . $value['name'] .  "</li>";
