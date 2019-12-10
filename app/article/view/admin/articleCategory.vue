@@ -49,7 +49,7 @@
 	                            <li class="col-md-1"></li>
 	                            <li class="col-md-2">
 	                                <Button size="small" type="text"  :disabled="item.children.length != 0" @click="categoryDel(index, item)">删除</Button>
-	                            	<Button size="small" v-if='item.status != 2' type="text" @click="switchStatus(index, item)">隐藏</Button>
+	                            	<Button size="small" v-if='item.status == 1' type="text" @click="switchStatus(index, item)">隐藏</Button>
 	                            	<Button size="small" v-else type="text" @click="switchStatus(index, item)">显示</Button>
 	                            	<Button size="small" type="primary" @click="categoryEditDialog(index, item)">编辑</Button>
 	                            </li>
@@ -71,7 +71,7 @@
 	                                    <li class="col-md-1"></li>
 	                                    <li class="col-md-2">
 	                                        <Button size="small" type="text" @click="categoryDel(subIndex, sub)">删除</Button>
-	                                        <Button size="small" v-if='sub.status != 2' type="text" @click="switchStatus(subIndex, sub)">隐藏</Button>
+	                                        <Button size="small" v-if='sub.status == 1' type="text" @click="switchStatus(subIndex, sub)">隐藏</Button>
 	                                        <Button size="small" v-else type="text" @click="switchStatus(subIndex, sub)">显示</Button>
 	                                        <Button size="small" type="primary" @click="categoryEditDialog(subIndex, sub)">修改</Button>
 	                                    </li>

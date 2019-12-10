@@ -5,12 +5,24 @@
     {mipcms:crumb isHome='1' cid="$categoryInfo['id']" ulClass='breadcrumb p-0 bg-transparent' liClass="breadcrumb-item" separator='' /}
     <div class="row">
         <main class="col-lg-8">
+            {if condition='$categoryInfo["is_page"]'}
+            {//单页面情况}
+            <section class="mip-box mip-box-main">
+                <section class="mip-box-heading">
+                     <h1 class="detail-title text-center">{$categoryInfo['name']}</h1>
+                </section>
+                <section class="mip-box-body mipcms-detail-body">
+                    {$categoryInfo['mipContent']}
+                </section>
+            </section>
+            {else /}
+            {//列表情况}
             <section class="mip-box mip-box-default">
                 <section class="mip-box-heading">
                     <h3>{$categoryInfo['name']}</h3>
                 </section>
                 <section class="mip-box-body">
-					{mipjz:ad name='categoryListTop'/}
+                    {mipjz:ad name='categoryListTop'/}
                     <div class="mipui-widget-media-body mipui-category-list-001">
                         {mipcms:article value='v' cid='$categoryInfo["cid"]' limit='10' page='$categoryInfo["page"]'}
                             {include file='block/article-list'}
@@ -19,6 +31,7 @@
                     {$pagination}
                 </section>
             </section>
+            {/if}
         </main>
         <aside class="col-lg-4 hidden-xs">
 			{mipjz:ad name='categorySideA'/}

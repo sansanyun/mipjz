@@ -161,6 +161,7 @@ class ArticlesCategory extends Controller
             $tempDetailUrl = substr($detailUrl, 0, 1) == '/' ? substr($detailUrl, 1) : $detailUrl;
             $itemCategoryInfo['detail__url__'] = str_replace('/','\/',str_replace('<id>','[a-zA-Z0-9_-]+$',$tempDetailUrl));
             $itemCategoryInfo['content'] = htmlspecialchars_decode($itemCategoryInfo['content']);
+            $itemCategoryInfo['mipContent'] = model('app\common\model\Common')->getContentFilterByContent($itemCategoryInfo['content']);
         } else {
             $itemCategoryInfo['url'] = config('domain') . '/'.$this->itemType.'/';
             $itemCategoryInfo['id'] = 0;
@@ -169,13 +170,19 @@ class ArticlesCategory extends Controller
         }
         return $itemCategoryInfo;
     }
-    public function getCategory($pid = '', $orderBy = 'sort', $order = 'asc', $limit = null, $where = null,$whereArray = null)
+    public function getCategory($pid = '', $orderBy = 'sort', $order = 'asc', $limit = null, $where = null,$whereArray = null,$isTopAll = null,$ids = null)
     {
+    	if ($isTopAll) {
+    		$statusWhere = null;
+    	} else {
+    		$statusWhere['status'] = 1;
+    	}
+    	
         $itemCategoryList = null;
         if ($pid === '' || $pid === null) {
             $itemCategoryList = db($this->itemCategory)->where($where)->where($whereArray)->limit($limit)->order($orderBy,$order)->select();
         } else {
-            $itemCategoryList = db($this->itemCategory)->where('pid',$pid)->where($where)->where($whereArray)->limit($limit)->order($orderBy,$order)->select();
+            $itemCategoryList = db($this->itemCategory)->where($statusWhere)->where('pid',$pid)->where($where)->where($whereArray)->limit($limit)->order($orderBy,$order)->select();
         }
        if($itemCategoryList) {
             foreach ($itemCategoryList as $key => $val) {

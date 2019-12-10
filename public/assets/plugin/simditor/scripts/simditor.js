@@ -479,7 +479,7 @@ Formatter = (function(superClass) {
     this._allowedTags = $.merge(['br', 'span', 'a', 'img', 'b', 'strong', 'i', 'strike', 'u', 'font', 'p', 'ul', 'ol', 'li', 'blockquote', 'pre', 'code', 'h1', 'h2', 'h3', 'h4', 'hr'], this.opts.allowedTags);
     this._allowedAttributes = $.extend({
       img: ['src', 'alt', 'width', 'height', 'data-non-image'],
-      a: ['href', 'target'],
+      a: ['href', 'target', 'rel'],
       font: ['color'],
       code: ['class']
     }, this.opts.allowedAttributes);
@@ -1611,8 +1611,8 @@ UndoManager = (function(superClass) {
       }
       if (!startContainer || !endContainer) {
         if (typeof console !== "undefined" && console !== null) {
-          if (typeof console.warn === "function") {
-            console.warn('simditor: invalid caret state');
+          if (typeof console.info === "function") {
+            console.info('simditor: invalid caret state');
           }
         }
         return;
@@ -1749,7 +1749,7 @@ Util = (function(superClass) {
   Util.prototype.isEmptyNode = function(node) {
     var $node;
     $node = $(node);
-    return $node.is(':empty') || (!$node.text() && !$node.find(':not(br, span, div)').length);
+    return $node.is(':empty') || (!$node.text() && !$node.find(':not(br, span, div, b, a, strong, i, strike, font, u)').length);
   };
 
   Util.prototype.isDecoratedNode = function(node) {
@@ -1919,7 +1919,8 @@ Toolbar = (function(superClass) {
     toolbar: true,
     toolbarFloat: true,
     toolbarHidden: false,
-    toolbarFloatOffset: 0
+    toolbarFloatOffset: 0,
+    toolbarScrollContainer: window
   };
 
   Toolbar.prototype._tpl = {
@@ -1928,7 +1929,7 @@ Toolbar = (function(superClass) {
   };
 
   Toolbar.prototype._init = function() {
-    var floatInitialized, initToolbarFloat, toolbarHeight;
+    var floatInitialized, initToolbarFloat, scrollContainerOffset, toolbarHeight;
     this.editor = this._module;
     if (!this.opts.toolbar) {
       return;
@@ -1951,7 +1952,11 @@ Toolbar = (function(superClass) {
       };
     })(this));
     if (!this.opts.toolbarHidden && this.opts.toolbarFloat) {
-      this.wrapper.css('top', this.opts.toolbarFloatOffset);
+      scrollContainerOffset = this.opts.toolbarScrollContainer === window ? {
+        top: 0,
+        left: 0
+      } : $(this.opts.toolbarScrollContainer).offset();
+      this.wrapper.css('top', scrollContainerOffset.top + this.opts.toolbarFloatOffset);
       toolbarHeight = 0;
       initToolbarFloat = (function(_this) {
         return function() {
@@ -1959,10 +1964,10 @@ Toolbar = (function(superClass) {
           _this.wrapper.width('auto');
           _this.editor.util.reflow(_this.wrapper);
           _this.wrapper.width(_this.wrapper.outerWidth());
-          _this.wrapper.css('left', _this.editor.util.os.mobile ? _this.wrapper.position().left : _this.wrapper.offset().left);
+          _this.wrapper.css('left', _this.editor.util.os.mobile ? _this.wrapper.position().left : _this.wrapper.offset().left - scrollContainerOffset.left);
           _this.wrapper.css('position', '');
           toolbarHeight = _this.wrapper.outerHeight();
-          _this.editor.placeholderEl.css('top', toolbarHeight);
+          _this.editor.placeholderEl.css('top', scrollContainerOffset.top);
           return true;
         };
       })(this);
@@ -1970,16 +1975,16 @@ Toolbar = (function(superClass) {
       $(window).on('resize.simditor-' + this.editor.id, function(e) {
         return floatInitialized = initToolbarFloat();
       });
-      $(window).on('scroll.simditor-' + this.editor.id, (function(_this) {
+      $(this.opts.toolbarScrollContainer).on('scroll.simditor-' + this.editor.id, (function(_this) {
         return function(e) {
           var bottomEdge, scrollTop, topEdge;
           if (!_this.wrapper.is(':visible')) {
             return;
           }
-          topEdge = _this.editor.wrapper.offset().top;
+          topEdge = _this.opts.toolbarScrollContainer === window ? _this.editor.wrapper.get(0).getBoundingClientRect().top : _this.editor.wrapper.offset().top - scrollContainerOffset.top;
           bottomEdge = topEdge + _this.editor.wrapper.outerHeight() - 80;
-          scrollTop = $(document).scrollTop() + _this.opts.toolbarFloatOffset;
-          if (scrollTop <= topEdge || scrollTop >= bottomEdge) {
+          scrollTop = $(_this.opts.toolbarScrollContainer).scrollTop() + _this.opts.toolbarFloatOffset;
+          if (topEdge > 0 || bottomEdge < 0) {
             _this.editor.wrapper.removeClass('toolbar-floating').css('padding-top', '');
             if (_this.editor.util.os.mobile) {
               return _this.wrapper.css('top', _this.opts.toolbarFloatOffset);
@@ -2262,7 +2267,7 @@ Clipboard = (function(superClass) {
     }
     return this.editor.body.on('paste', (function(_this) {
       return function(e) {
-        var range;
+        var pasteBinAnchor, range;
         if (_this.pasting || _this._pasteBin) {
           return;
         }
@@ -2277,10 +2282,17 @@ Clipboard = (function(superClass) {
         } else {
           _this.editor.formatter.format();
           _this.editor.selection.setRangeAtStartOf(_this.editor.body.find('p:first'));
+          range = _this.editor.selection._range;
         }
         if (_this._processPasteByClipboardApi(e)) {
           return false;
         }
+        pasteBinAnchor = $('<span>');
+        range.insertNode(pasteBinAnchor[0]);
+        _this._createPasteBin(pasteBinAnchor);
+        pasteBinAnchor.remove();
+        range.collapse(true);
+        _this.editor.selection.range(range);
         _this.editor.inputManager.throttledValueChanged.clear();
         _this.editor.inputManager.throttledSelectionChanged.clear();
         _this.editor.undoManager.throttledPushState.clear();
@@ -2299,9 +2311,6 @@ Clipboard = (function(superClass) {
 
   Clipboard.prototype._processPasteByClipboardApi = function(e) {
     var imageFile, pasteItem, ref, uploadOpt;
-    if (this.editor.util.browser.edge) {
-      return;
-    }
     if (e.originalEvent.clipboardData && e.originalEvent.clipboardData.items && e.originalEvent.clipboardData.items.length > 0) {
       pasteItem = e.originalEvent.clipboardData.items[0];
       if (/^image\//.test(pasteItem.type)) {
@@ -2325,9 +2334,18 @@ Clipboard = (function(superClass) {
     }
   };
 
+  Clipboard.prototype._createPasteBin = function(anchorNode) {
+    var anchorOffset, editorOffset;
+    anchorOffset = anchorNode.offset();
+    editorOffset = this.editor.el.offset();
+    return this._pasteBin = $('<div contenteditable="true" />').addClass('simditor-paste-bin').attr('tabIndex', '-1').css({
+      top: anchorOffset.top - editorOffset.top,
+      left: anchorOffset.left - editorOffset.left
+    }).appendTo(this.editor.el);
+  };
+
   Clipboard.prototype._getPasteContent = function(callback) {
     var state;
-    this._pasteBin = $('<div contenteditable="true" />').addClass('simditor-paste-bin').attr('tabIndex', '-1').appendTo(this.editor.el);
     state = {
       html: this.editor.body.html(),
       caret: this.editor.undoManager.caretPosition()
@@ -4158,6 +4176,7 @@ LinkButton = (function(superClass) {
       $link = $('<a/>', {
         href: '',
         target: '_blank',
+        rel: '',
         text: linkText || this._t('linkText')
       });
       if (this.editor.selection.blockNodes().length > 0) {
@@ -4196,12 +4215,13 @@ LinkPopover = (function(superClass) {
 
   LinkPopover.prototype.render = function() {
     var tpl;
-    tpl = "<div class=\"link-settings\">\n  <div class=\"settings-field\">\n    <label>" + (this._t('linkText')) + "</label>\n    <input class=\"link-text\" type=\"text\"/>\n    <a class=\"btn-unlink\" href=\"javascript:;\" title=\"" + (this._t('removeLink')) + "\"\n      tabindex=\"-1\">\n      <span class=\"simditor-icon simditor-icon-unlink\"></span>\n    </a>\n  </div>\n  <div class=\"settings-field\">\n    <label>" + (this._t('linkUrl')) + "</label>\n    <input class=\"link-url\" type=\"text\"/>\n  </div>\n  <div class=\"settings-field\">\n    <label>" + (this._t('linkTarget')) + "</label>\n    <select class=\"link-target\">\n      <option value=\"_blank\">" + (this._t('openLinkInNewWindow')) + " (_blank)</option>\n      <option value=\"_self\">" + (this._t('openLinkInCurrentWindow')) + " (_self)</option>\n    </select>\n  </div>\n</div>";
+    tpl = "<div class=\"link-settings\">\n  <div class=\"settings-field\">\n    <label>" + (this._t('linkText')) + "</label>\n    <input class=\"link-text\" type=\"text\"/>\n    <a class=\"btn-unlink\" href=\"javascript:;\" title=\"" + (this._t('removeLink')) + "\"\n      tabindex=\"-1\">\n      <span class=\"simditor-icon simditor-icon-unlink\"></span>\n    </a>\n  </div>\n  <div class=\"settings-field\">\n    <label>" + (this._t('linkUrl')) + "</label>\n    <input class=\"link-url\" type=\"text\"/>\n  </div>\n  <div class=\"settings-field\">\n    <label>" + (this._t('linkTarget')) + "</label>\n    <select class=\"link-target\">\n      <option value=\"_blank\">" + (this._t('openLinkInNewWindow')) + " (_blank)</option>\n      <option value=\"_self\">" + (this._t('openLinkInCurrentWindow')) + " (_self)</option>\n    </select>\n  </div>\n  <div class=\"settings-field\">\n    <label>rel属性</label>\n<select class=\"link-rel\"><option value=\"\"></option><option value=\"nofollow\">nofollow</option>\n    </select>\n  </div>\n</div>";
     this.el.addClass('link-popover').append(tpl);
     this.textEl = this.el.find('.link-text');
     this.urlEl = this.el.find('.link-url');
     this.unlinkEl = this.el.find('.btn-unlink');
     this.selectTarget = this.el.find('.link-target');
+    this.selectRel = this.el.find('.link-rel');
     this.textEl.on('keyup', (function(_this) {
       return function(e) {
         if (e.which === 13) {
@@ -4248,6 +4268,12 @@ LinkPopover = (function(superClass) {
         return _this.editor.inputManager.throttledValueChanged();
       };
     })(this));
+    this.selectRel.on('change', (function(_this) {
+      return function(e) {
+        _this.target.attr('rel', _this.selectRel.val());
+        return _this.editor.inputManager.throttledValueChanged();
+      };
+    })(this));
     return this.selectTarget.on('change', (function(_this) {
       return function(e) {
         _this.target.attr('target', _this.selectTarget.val());
@@ -4261,6 +4287,8 @@ LinkPopover = (function(superClass) {
     args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
     LinkPopover.__super__.show.apply(this, args);
     this.textEl.val(this.target.text());
+    this.selectTarget.val(this.target.attr('target'));
+    this.selectRel.val(this.target.attr('rel'));
     return this.urlEl.val(this.target.attr('href'));
   };
 
@@ -4648,7 +4676,7 @@ ImageButton = (function(superClass) {
       $mask.remove();
       return $img.removeData('mask').removeClass('loading');
     };
-    return img.src = src;
+    return img.setAttribute('src', src);
   };
 
   ImageButton.prototype.createImage = function(name) {

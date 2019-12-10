@@ -104,7 +104,12 @@ class ApiAdminArticleCategory extends AdminBase
     {
         $data = $this->request->post();
         $data['orderBy'] = $data['orderBy'] ? $data['orderBy'] : 'sort';
-        $categoryList = model($this->itemCategoryModelNameSpace)->getCategory(0,$data['orderBy'],$data['order'],$data['limit']);
+        $categoryList = model($this->itemCategoryModelNameSpace)->getCategory(0,$data['orderBy'],$data['order'],$data['limit'],null,null,1);
+        if ($categoryList) {
+            foreach ($categoryList as $key => $value) {
+                $categoryList[$key]['children'] = model($this->itemCategoryModelNameSpace)->getCategory($value['id'],$data['orderBy'],$data['order'],$data['limit'],null,null,1);
+            }
+        }
         return jsonSuccess('操作成功',['categoryList' => $categoryList]);
     }
 
@@ -160,13 +165,13 @@ class ApiAdminArticleCategory extends AdminBase
           return jsonError('缺少参数');
         }
         if ($categoryInfo = db($this->itemCategory)->where('id',$id)->find()) {
-            if ($categoryInfo['status'] == 2) {
+            if ($categoryInfo['status'] == 1) {
                 db($this->itemCategory)->where('id',$id)->update(array(
-                    'status' => '',
+                    'status' => 0,
                 ));
             } else {
                 db($this->itemCategory)->where('id',$id)->update(array(
-                    'status' => 2,
+                    'status' => 1,
                 ));
             }
             return jsonSuccess('删除成功');

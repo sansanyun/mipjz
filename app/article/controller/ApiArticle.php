@@ -33,40 +33,28 @@ class ApiArticle extends Base
         $data = $this->request->param();
         $data['orderBy'] = $data['orderBy'] ? $data['orderBy'] : 'sort';
         $categoryList = model($this->itemCategoryModelNameSpace)->getCategory(0,$data['orderBy'],$data['order'],$data['limit']);
+        if ($categoryList) {
+        	foreach ($categoryList as $key => $val) {
+        		$categoryList[$key]['title'] = isset($val['name']) ? $val['name'] : $val['title'];
+        		$categoryList[$key]['model_name'] = $val['is_page'] ? 'page' : '';
+        	}
+        }
         return jsonSuccess('操作成功',['categoryList' => $categoryList]);
     }
     public function itemList()
     {
-      	$page = input('param.page');
-		$limit = input('param.limit');
-		$orderBy = input('param.orderBy');
-		$order = input('param.order');
-        $cid = input('param.cid');
-        $keywords = input('param.keywords');
-        $domain = input('param.domain');
-		if (!$page) {
-		  $page = 1;
-		}
-		if (!$limit) {
-		  $limit = 10;
-		}
-		if (!$orderBy) {
-	       $orderBy = 'id';
-		}
-		if (!$order) {
-			$order = 'desc';
-		}
+      	$data = $this->request->param();
         $patern = '/^^((https|http|ftp)?:?\/\/)[^\s]+$/';
-        $itemList = model($this->itemModelNameSpace)->getItemList($cid,$page,$limit,$orderBy,$order,null,$where,$keywords);
-        $itemCount = model($this->itemModelNameSpace)->getCount($cid,'', $keywords);
-        if ($domain) {
+        $type = $data['type'];
+        $itemList = model($this->itemModelNameSpace)->getItemList($data['cid'], $data['page'], $data['limit'], $data['orderBy'], $data['order'], $where, $data['keywords']);
+        $itemCount = model($this->itemModelNameSpace)->getCount($data['cid'], $data['keywords']);
+        if ($data['domain']) {
             if ($itemList) {
                 foreach ($itemList as $key => $val) {
-                    $itemList[$key]['url'] = model($this->itemModelNameSpace)->getUrlByItemInfo($val,$domain);
+                    $itemList[$key]['url'] = model($this->itemModelNameSpace)->getUrlByItemInfo($val,$data['domain']);
                 }
             }
         }
-        
         if ($itemList) {
             foreach ($itemList as $key => $val) {
                 $itemList[$key]['publish_date'] = date('Y-m-d H:i:s',$itemList[$key]['publish_time']);
@@ -78,19 +66,20 @@ class ApiArticle extends Base
             }
         }
         
-	    return jsonSuccess('',['itemList' => $itemList,'total' => $itemCount,'page' => $page]);
+	    return jsonSuccess('',['itemList' => $itemList,'total' => $itemCount,'page' => $data['page']]);
     }
     
     
-    public function getItemInfo()
+     public function getItemInfo()
     {
-        $uuid = input('post.uuid');
-        if ($uuid) {
-            $itemInfo = db($this->item)->where('uuid',$uuid)->find();
+        $id = input('param.id');
+        if ($id) {
+            $itemInfo = db($this->item)->where('id',$id)->find();
         } else {
             return  jsonError('内容不存在');
         }
-        $itemInfo = model($this->itemModelNameSpace)->getItemInfo('',$uuid);
+        $itemInfo = model($this->itemModelNameSpace)->getItemInfo($id);
+        $itemInfo['content'] = model($this->itemModelNameSpace)->getContentByArticleInfo($itemInfo);
         $itemInfo['publish_date'] = date('Y-m-d H:i:s',$itemInfo['publish_time']);
         $patern = '/^^((https|http|ftp)?:?\/\/)[^\s]+$/';
         preg_match_all('/<img.*?src=[\'|\"](.*?)[\'|\"].*?[\/]?>/', $itemInfo['content'], $imagesArrays);

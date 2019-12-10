@@ -1,5 +1,5 @@
 <?php
-
+use think\Request;
 use JonnyW\PhantomJs\Client;
 
 use JonnyW\PhantomJs\DependencyInjection\ServiceContainer;
@@ -161,3 +161,5 @@ use JonnyW\PhantomJs\DependencyInjection\ServiceContainer;
     function domains($param) {
         return config('domains') . $param;
     }
+    
+    
