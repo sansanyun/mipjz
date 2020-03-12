@@ -204,6 +204,7 @@
                 description: '',
                 keywords: '',
                 is_page: '0',
+                status: '0',
                 template: 'article.html',
                 detail_template: 'articleDetail.html',
                 category_url: '/article/<url_name>/',
@@ -390,6 +391,7 @@
                 this.category.pid = 0,
                 this.category.name = '';
                 this.category.url_name = '';
+                this.category.status = 1;
                 this.category.seo_title = '';
                 this.category.template = 'article.html';
                 this.category.detail_template = 'articleDetail.html';
@@ -437,6 +439,7 @@
                                 pid: this.category.pid,
                                 name: this.category.name,
                                 url_name: this.category.url_name,
+                                status: this.category.status,
                                 seo_title: this.category.seo_title,
                                 template: this.category.template,
                                 detail_template: this.category.detail_template,
@@ -461,6 +464,7 @@
                                 pid: this.category.pid,
                                 name: this.category.name,
                                 url_name: this.category.url_name,
+                                status: this.category.status,
                                 seo_title: this.category.seo_title,
                                 template: this.category.template,
                                 detail_template: this.category.detail_template,
@@ -551,6 +555,7 @@
                 this.category.name = row.name;
                 this.category.pid = row.pid;
                 this.category.url_name = row.url_name;
+                this.category.status = row.status;
                 this.category.seo_title = row.seo_title;
                 this.category.template = row.template;
                 this.category.detail_template = row.detail_template;
