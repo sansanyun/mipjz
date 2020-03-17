@@ -49,7 +49,7 @@
 	                            <li class="col-md-1"></li>
 	                            <li class="col-md-2">
 	                                <Button size="small" type="text"  :disabled="item.children.length != 0" @click="categoryDel(index, item)">删除</Button>
-	                            	<Button size="small" v-if='item.status != 2' type="text" @click="switchStatus(index, item)">隐藏</Button>
+	                            	<Button size="small" v-if='item.status == 1' type="text" @click="switchStatus(index, item)">隐藏</Button>
 	                            	<Button size="small" v-else type="text" @click="switchStatus(index, item)">显示</Button>
 	                            	<Button size="small" type="primary" @click="categoryEditDialog(index, item)">编辑</Button>
 	                            </li>
@@ -71,7 +71,7 @@
 	                                    <li class="col-md-1"></li>
 	                                    <li class="col-md-2">
 	                                        <Button size="small" type="text" @click="categoryDel(subIndex, sub)">删除</Button>
-	                                        <Button size="small" v-if='sub.status != 2' type="text" @click="switchStatus(subIndex, sub)">隐藏</Button>
+	                                        <Button size="small" v-if='sub.status == 1' type="text" @click="switchStatus(subIndex, sub)">隐藏</Button>
 	                                        <Button size="small" v-else type="text" @click="switchStatus(subIndex, sub)">显示</Button>
 	                                        <Button size="small" type="primary" @click="categoryEditDialog(subIndex, sub)">修改</Button>
 	                                    </li>
@@ -204,6 +204,7 @@
                 description: '',
                 keywords: '',
                 is_page: '0',
+                status: '0',
                 template: 'article.html',
                 detail_template: 'articleDetail.html',
                 category_url: '/article/<url_name>/',
@@ -390,6 +391,7 @@
                 this.category.pid = 0,
                 this.category.name = '';
                 this.category.url_name = '';
+                this.category.status = 1;
                 this.category.seo_title = '';
                 this.category.template = 'article.html';
                 this.category.detail_template = 'articleDetail.html';
@@ -437,6 +439,7 @@
                                 pid: this.category.pid,
                                 name: this.category.name,
                                 url_name: this.category.url_name,
+                                status: this.category.status,
                                 seo_title: this.category.seo_title,
                                 template: this.category.template,
                                 detail_template: this.category.detail_template,
@@ -461,6 +464,7 @@
                                 pid: this.category.pid,
                                 name: this.category.name,
                                 url_name: this.category.url_name,
+                                status: this.category.status,
                                 seo_title: this.category.seo_title,
                                 template: this.category.template,
                                 detail_template: this.category.detail_template,
@@ -551,6 +555,7 @@
                 this.category.name = row.name;
                 this.category.pid = row.pid;
                 this.category.url_name = row.url_name;
+                this.category.status = row.status;
                 this.category.seo_title = row.seo_title;
                 this.category.template = row.template;
                 this.category.detail_template = row.detail_template;
